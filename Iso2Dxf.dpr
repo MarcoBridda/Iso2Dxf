@@ -13,7 +13,7 @@ var
 begin
   try
     //Creiamo un rettangolo da 30x20mm e lo salviamo come dxf
-    Rect:=TRect.Create(-15,10,15,-10);
+    Rect:=TRect.Create(-15,-10,15,10);
 
     //Stampiamo un po' di info...
     WriteLn('Width : ', Rect.Width);
