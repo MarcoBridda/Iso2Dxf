@@ -5,7 +5,10 @@ program Iso2Dxf;
 {$R *.res}
 
 uses
-  System.SysUtils;
+  System.SysUtils, System.Types;
+
+var
+  Rect: TRect;
 
 begin
   try
