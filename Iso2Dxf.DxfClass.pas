@@ -16,7 +16,7 @@ type
     procedure AddItem(const Code: Integer; const Value: String);
   public
     constructor Create;
-    destructor Destroy;
+    destructor Destroy; override;
 
     //Metodi per aggiungere elementi specifici
     procedure BeginEntities();
