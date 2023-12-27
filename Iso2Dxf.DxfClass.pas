@@ -42,7 +42,7 @@ end;
 
 procedure TDxfClass.AddVertex(const X, Y: Integer);
 begin
-  AddItem(0,'POLYLINE');
+  AddItem(0,'VERTEX');
   AddItem(8,'0');   //Layer
   AddItem(10,X.ToString());
   AddItem(20,Y.ToString());
