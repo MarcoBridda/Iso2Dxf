@@ -67,3 +67,6 @@ __recovery/
 
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
 modules/
+
+# Cose varie che stanno nelle cartelle Debug e Release (e in Win32)
+win32/
