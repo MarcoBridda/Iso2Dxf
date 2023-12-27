@@ -5,10 +5,11 @@ program Iso2Dxf;
 {$R *.res}
 
 uses
-  System.SysUtils, System.Types;
+  System.SysUtils, System.Types, System.Classes;
 
 var
   Rect: TRect;
+  Dxf: TStringList;
 
 begin
   try
