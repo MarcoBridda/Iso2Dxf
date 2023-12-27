@@ -5,7 +5,10 @@ program Iso2Dxf;
 {$R *.res}
 
 uses
-  System.SysUtils, System.Types, System.Classes;
+  System.SysUtils,
+  System.Types,
+  System.Classes,
+  Iso2Dxf.DxfClass in 'Iso2Dxf.DxfClass.pas';
 
 var
   Rect: TRect;
