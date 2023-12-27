@@ -30,7 +30,16 @@ begin
     //Creiamo il dxf e scriviamo il rettangolo
     Dxf:=TStringList.Create();
     try
-      //Cose da fare...
+      //Tanto per fare una prova lo scriviamo a manina...
+      AddItemToDXF(Dxf,0,'SECTION');
+      AddItemToDXF(Dxf,2,'ENTITIES');
+
+
+      AddItemToDXF(Dxf,0,'ENDSEC');
+      AddItemToDXF(Dxf,0,'EOF');
+
+      //Scriviamo il file sul disco
+      Dxf.SaveToFile('Prova.dxf');
     finally
       Dxf.Free
     end;
