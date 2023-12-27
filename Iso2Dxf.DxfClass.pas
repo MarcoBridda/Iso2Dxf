@@ -3,6 +3,11 @@ unit Iso2Dxf.DxfClass;
 
 interface
 
+type
+  TDXFClass = class
+
+  end;
+
 implementation
 
 end.
