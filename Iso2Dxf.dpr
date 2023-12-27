@@ -9,7 +9,7 @@ uses
 
 begin
   try
-    { TODO -oUser -cConsole Main : Insert code here }
+    //Creiamo un rettangolo e lo salviamo come dxf
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
