@@ -25,6 +25,9 @@ type
     procedure EndPolyline();
     procedure EndSection();
     procedure EndOfFile();
+
+    //Salva il Dxf sul disco
+    procedure SaveToFile(const FileName: string);
   end;
 
 implementation
@@ -85,6 +88,11 @@ end;
 procedure TDxfClass.EndSection;
 begin
   AddItem(0,'ENDSEC');
+end;
+
+procedure TDxfClass.SaveToFile(const FileName: string);
+begin
+  FDxfFile.SaveToFile(FileName);
 end;
 
 end.
