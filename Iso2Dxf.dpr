@@ -34,6 +34,38 @@ begin
       AddItemToDXF(Dxf,0,'SECTION');
       AddItemToDXF(Dxf,2,'ENTITIES');
 
+      AddItemToDXF(Dxf,0,'POLYLINE');
+      AddItemToDXF(Dxf,8,'0');
+      AddItemToDXF(Dxf,70,'1');
+      AddItemToDXF(Dxf,10,'0');
+      AddItemToDXF(Dxf,20,'0');
+      AddItemToDXF(Dxf,30,'0');
+
+      AddItemToDXF(Dxf,0,'VERTEX');
+      AddItemToDXF(Dxf,8,'0');
+      AddItemToDXF(Dxf,10,Rect.Left.ToString());
+      AddItemToDXF(Dxf,20,Rect.Top.ToString());
+      AddItemToDXF(Dxf,30,'0');
+
+      AddItemToDXF(Dxf,0,'VERTEX');
+      AddItemToDXF(Dxf,8,'0');
+      AddItemToDXF(Dxf,10,Rect.Right.ToString());
+      AddItemToDXF(Dxf,20,Rect.Top.ToString());
+      AddItemToDXF(Dxf,30,'0');
+
+      AddItemToDXF(Dxf,0,'VERTEX');
+      AddItemToDXF(Dxf,8,'0');
+      AddItemToDXF(Dxf,10,Rect.Right.ToString());
+      AddItemToDXF(Dxf,20,Rect.Bottom.ToString());
+      AddItemToDXF(Dxf,30,'0');
+
+      AddItemToDXF(Dxf,0,'VERTEX');
+      AddItemToDXF(Dxf,8,'0');
+      AddItemToDXF(Dxf,10,Rect.Left.ToString());
+      AddItemToDXF(Dxf,20,Rect.Bottom.ToString());
+      AddItemToDXF(Dxf,30,'0');
+
+      AddItemToDXF(Dxf,0,'SEQEND');
 
       AddItemToDXF(Dxf,0,'ENDSEC');
       AddItemToDXF(Dxf,0,'EOF');
