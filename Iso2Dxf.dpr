@@ -24,7 +24,6 @@ begin
     WriteLn('Origin: ', Rect.CenterPoint.X,':',Rect.CenterPoint.Y);
 
     //Creiamo il dxf e scriviamo il rettangolo
-    //Dxf:=TStringList.Create();
     Dxf:=TDxfClass.Create;
     try
       Dxf.BeginEntities();

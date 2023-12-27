@@ -20,7 +20,7 @@ type
 
     //Metodi per aggiungere elementi specifici
     procedure BeginEntities();
-    procedure BeginPolyline();
+    procedure BeginPolyline(const IsClosed: Boolean = false);
     procedure AddVertex(const X,Y: Integer);
     procedure EndPolyline();
     procedure EndSection();
@@ -55,11 +55,14 @@ begin
   AddItem(2,'ENTITIES');
 end;
 
-procedure TDxfClass.BeginPolyline;
+procedure TDxfClass.BeginPolyline(const IsClosed: Boolean);
 begin
   AddItem(0,'POLYLINE');
-  AddItem(8,'0');   //Layer
-  AddItem(70,'1');  //Polilinea chiusa
+  AddItem(8,'0');     //Layer
+
+  if IsClosed then
+    AddItem(70,'1');  //Polilinea chiusa
+
   AddItem(10,'0');
   AddItem(20,'0');
   AddItem(30,'0');
