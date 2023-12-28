@@ -11,12 +11,14 @@ uses
 
 var
   IsoLine: String;
+  IsoPart: TArray<String>;
 
 begin
   try
     repeat
       Write('>');
       ReadLn(IsoLine);
+      IsoPart:=IsoLine.Split(['(',')']);
       IsoLine:=IsoLine.ToUpper().Replace(' ','',[rfReplaceAll]);
       WriteLn('Hai scritto: ',IsoLine);
     until IsoLine='';
