@@ -17,6 +17,7 @@ begin
     repeat
       Write('>');
       ReadLn(IsoLine);
+      IsoLine:=IsoLine.ToUpper().Replace(' ','',[rfReplaceAll]);
       WriteLn('Hai scritto: ',IsoLine);
     until IsoLine='';
   except
