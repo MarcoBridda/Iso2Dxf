@@ -10,15 +10,15 @@ uses
   Iso2Dxf.DxfClass in 'Iso2Dxf.DxfClass.pas';
 
 var
-  Rect: TRect;
-  Dxf: TDxfClass;
+  IsoLine: String;
 
 begin
   try
-    
-
-    //Fine
-    ReadLn
+    repeat
+      Write('>');
+      ReadLn(IsoLine);
+      WriteLn('Hai scritto: ',IsoLine);
+    until IsoLine='';
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
