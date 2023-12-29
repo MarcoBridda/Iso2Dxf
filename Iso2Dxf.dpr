@@ -11,15 +11,20 @@ uses
 
 var
   IsoLine: String;
-  IsoPart: TArray<String>;
+
+//Normalizza il blocco di comandi ISO: tutto in maiuscolo ed eliminiamo gli
+//e le tabulazioni
+function NormalizeIso(IsoBlock: String): String;
+begin
+  Result:=IsoBlock.ToUpper().Replace(' ','',[rfReplaceAll]).Replace(#9,'',[rfReplaceAll]);
+end;
 
 begin
   try
     repeat
       Write('>');
       ReadLn(IsoLine);
-      IsoPart:=IsoLine.Split(['(',')']);
-      IsoLine:=IsoLine.ToUpper().Replace(' ','',[rfReplaceAll]);
+      IsoLine:=NormalizeIso(IsoLine);
       WriteLn('Hai scritto: ',IsoLine);
     until IsoLine='';
   except
