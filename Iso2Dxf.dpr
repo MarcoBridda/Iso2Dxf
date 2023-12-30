@@ -7,6 +7,7 @@ program Iso2Dxf;
 uses
   System.SysUtils,
   System.Types,
+  System.Classes,
   Iso2Dxf.DxfClass in 'Iso2Dxf.DxfClass.pas';
 
 var
@@ -39,6 +40,11 @@ begin
 
     PosB:=Result.IndexOf('(',PosE+1)
   end;
+end;
+
+procedure SplitAddresses(const IsoBlock: String; out List: TStrings);
+begin
+  //
 end;
 
 begin
