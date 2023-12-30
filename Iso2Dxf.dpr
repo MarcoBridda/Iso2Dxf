@@ -46,9 +46,12 @@ begin
     repeat
       Write('>');
       ReadLn(IsoLine);
-      IsoLine:=SkipComment(IsoLine);
-      IsoLine:=NormalizeIso(IsoLine);
-      WriteLn('Hai scritto: ',IsoLine);
+      if IsoLine<>'' then
+      begin
+        IsoLine:=SkipComment(IsoLine);
+        IsoLine:=NormalizeIso(IsoLine);
+        WriteLn('Hai scritto: ',IsoLine)
+      end;
     until IsoLine='';
   except
     on E: Exception do
