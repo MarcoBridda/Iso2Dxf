@@ -12,6 +12,8 @@ uses
 
 var
   IsoLine: String;
+  Addresses: TstringList;
+  Addr: String;
 
 //Normalizza il blocco di comandi ISO: tutto in maiuscolo ed eliminiamo gli
 //e le tabulazioni
@@ -42,23 +44,41 @@ begin
   end;
 end;
 
-procedure SplitAddresses(const IsoBlock: String; out List: TStrings);
+procedure SplitAddresses(const IsoBlock: String; out List: TStringList);
+var
+  Addr: Char;
+  Text: String;
 begin
-  //
+  Text:=IsoBlock;
+
+  for Addr:= 'A' to 'Z' do
+    Text:=Text.Replace(Addr,#13#10+Addr+'=',[rfReplaceAll]);
+
+  List.Text:=Text;
+  List.Delete(0)
 end;
 
 begin
   try
-    repeat
-      Write('>');
-      ReadLn(IsoLine);
-      if IsoLine<>'' then
-      begin
-        IsoLine:=SkipComment(IsoLine);
-        IsoLine:=NormalizeIso(IsoLine);
-        WriteLn('Hai scritto: ',IsoLine)
-      end;
-    until IsoLine='';
+    Addresses:=TStringList.Create;
+    try
+      repeat
+        Write('>');
+        ReadLn(IsoLine);
+        if IsoLine<>'' then
+        begin
+          IsoLine:=SkipComment(IsoLine);
+          IsoLine:=NormalizeIso(IsoLine);
+          SplitAddresses(IsoLine,Addresses);
+
+          WriteLn('Hai scritto: ',IsoLine);
+          for Addr in Addresses do
+            WriteLn('  ',Addr);
+        end;
+      until IsoLine='';
+    finally
+      Addresses.Free;
+    end;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
