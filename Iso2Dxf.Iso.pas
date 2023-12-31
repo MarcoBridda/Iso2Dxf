@@ -20,10 +20,12 @@ private
   //Accesso alle proprietà
   procedure SetBlock(const Value: String);
 public
-  constructor Create(aBlock: String);
+  constructor Create(aBlock: String = '');
   destructor Destroy; override;
 
   property Block: String read FBlock write SetBlock;
+  property Comments: TStringList read FComments;
+  property Words: TStringList read FWords;
 end;
 
 implementation
