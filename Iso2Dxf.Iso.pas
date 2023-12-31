@@ -103,11 +103,14 @@ var
   Text: String;
 begin
   //Facciamo finta che il blocco iso sia sempre sintatticamente corretto
-  Text:=ExtractComments(Value);
-  Text:=Normalize(Text);
-  ExtractWords(Text);
+  if not Value.IsEmpty then
+  begin
+    Text:=ExtractComments(Value);
+    Text:=Normalize(Text);
+    ExtractWords(Text);
+  end;
 
-  FBlock := Value;
+    FBlock := Value
 end;
 
 end.
