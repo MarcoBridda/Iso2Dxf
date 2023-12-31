@@ -89,7 +89,8 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Iso2Dxf.DxfClass.pas"/>
+        <DCCReference Include="Iso2Dxf.Dxf.pas"/>
+        <DCCReference Include="Iso2Dxf.Iso.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

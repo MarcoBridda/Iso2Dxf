@@ -8,7 +8,8 @@ uses
   System.SysUtils,
   System.Types,
   System.Classes,
-  Iso2Dxf.DxfClass in 'Iso2Dxf.DxfClass.pas';
+  Iso2Dxf.Dxf in 'Iso2Dxf.Dxf.pas',
+  Iso2Dxf.Iso in 'Iso2Dxf.Iso.pas';
 
 var
   IsoLine: String;
@@ -63,7 +64,7 @@ begin
     Addresses:=TStringList.Create;
     try
       repeat
-        Write('>');
+        Write('cnc>');
         ReadLn(IsoLine);
         if IsoLine<>'' then
         begin

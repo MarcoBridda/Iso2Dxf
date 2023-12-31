@@ -1,4 +1,4 @@
-unit Iso2Dxf.DxfClass;
+unit Iso2Dxf.Dxf;
 //Una classe per rappresentare un file dxf
 
 interface
