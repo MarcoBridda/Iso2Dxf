@@ -1,5 +1,5 @@
 unit Iso2Dxf.Dxf;
-//Una classe per rappresentare un file dxf
+//Una una unit per la parte dxf
 
 interface
 
@@ -7,13 +7,13 @@ uses
   System.Classes, System.SysUtils;
 
 type
-  TDxfClass = class
+  TDxfFile = class
   private
-    FDxfFile: TstringList;
+    FLines: TstringList;
 
     //Le informazioni vanno a paio: un codice numerico e un valore associato
     //ma vanno scritte su due righe separate
-    procedure AddItem(const Code: Integer; const Value: String);
+    procedure Add(const Code: Integer; const Value: String);
   public
     constructor Create;
     destructor Destroy; override;
@@ -34,68 +34,68 @@ implementation
 
 { TDxfClass }
 
-procedure TDxfClass.AddItem(const Code: Integer; const Value: String);
+procedure TDxfFile.Add(const Code: Integer; const Value: String);
 begin
-  FDxfFile.Add('  ' + Code.ToString);
-  FDxfFile.Add(Value);
+  FLines.Add('  ' + Code.ToString);
+  FLines.Add(Value);
 end;
 
-procedure TDxfClass.AddVertex(const X, Y: Integer);
+procedure TDxfFile.AddVertex(const X, Y: Integer);
 begin
-  AddItem(0,'VERTEX');
-  AddItem(8,'0');   //Layer
-  AddItem(10,X.ToString());
-  AddItem(20,Y.ToString());
-  AddItem(30,'0');
+  Add(0,'VERTEX');
+  Add(8,'0');   //Layer
+  Add(10,X.ToString());
+  Add(20,Y.ToString());
+  Add(30,'0');
 end;
 
-procedure TDxfClass.BeginEntities;
+procedure TDxfFile.BeginEntities;
 begin
-  AddItem(0,'SECTION');
-  AddItem(2,'ENTITIES');
+  Add(0,'SECTION');
+  Add(2,'ENTITIES');
 end;
 
-procedure TDxfClass.BeginPolyline(const IsClosed: Boolean);
+procedure TDxfFile.BeginPolyline(const IsClosed: Boolean);
 begin
-  AddItem(0,'POLYLINE');
-  AddItem(8,'0');     //Layer
+  Add(0,'POLYLINE');
+  Add(8,'0');     //Layer
 
   if IsClosed then
-    AddItem(70,'1');  //Polilinea chiusa
+    Add(70,'1');  //Polilinea chiusa
 
-  AddItem(10,'0');
-  AddItem(20,'0');
-  AddItem(30,'0');
+  Add(10,'0');
+  Add(20,'0');
+  Add(30,'0');
 end;
 
-constructor TDxfClass.Create;
+constructor TDxfFile.Create;
 begin
-  FDxfFile:=TStringList.Create;
+  FLines:=TStringList.Create;
 end;
 
-destructor TDxfClass.Destroy;
+destructor TDxfFile.Destroy;
 begin
-  FDxfFile.Free;
+  FLines.Free;
 end;
 
-procedure TDxfClass.EndOfFile;
+procedure TDxfFile.EndOfFile;
 begin
-  AddItem(0,'EOF');
+  Add(0,'EOF');
 end;
 
-procedure TDxfClass.EndPolyline;
+procedure TDxfFile.EndPolyline;
 begin
-  AddItem(0,'SEQEND');
+  Add(0,'SEQEND');
 end;
 
-procedure TDxfClass.EndSection;
+procedure TDxfFile.EndSection;
 begin
-  AddItem(0,'ENDSEC');
+  Add(0,'ENDSEC');
 end;
 
-procedure TDxfClass.SaveToFile(const FileName: string);
+procedure TDxfFile.SaveToFile(const FileName: string);
 begin
-  FDxfFile.SaveToFile(FileName);
+  FLines.SaveToFile(FileName);
 end;
 
 end.
