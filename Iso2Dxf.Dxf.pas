@@ -76,6 +76,8 @@ end;
 destructor TDxfFile.Destroy;
 begin
   FLines.Free;
+
+  inherited;
 end;
 
 procedure TDxfFile.EndOfFile;
