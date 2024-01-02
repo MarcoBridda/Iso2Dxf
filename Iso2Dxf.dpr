@@ -14,9 +14,8 @@ uses
 
 var
   CncFile: TStringList;
-  Words: TStringList;
   IsoBlock: TIsoBlock;
-  Line: String;
+  Line, W: String;
 
 begin
   try
@@ -28,7 +27,15 @@ begin
         try
           CncFile.LoadFromFile(TMBCmdline.Param[1]);
           for Line in CncFile do
-            WriteLn(Line)
+          begin
+            IsoBlock.Block:=Line;
+            WriteLn(Line);
+            WriteLn('{');
+            for W in IsoBlock.Words do
+              WriteLn('  ',W);
+            WriteLn('}');
+            WriteLn;
+          end;
         finally
           CncFile.Free
         end;
