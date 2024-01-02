@@ -8,6 +8,7 @@ uses
   System.SysUtils,
   System.Types,
   System.Classes,
+  MBSoft.System,
   Iso2Dxf.Dxf in 'Iso2Dxf.Dxf.pas',
   Iso2Dxf.Iso in 'Iso2Dxf.Iso.pas';
 
@@ -15,11 +16,19 @@ var
   IsoLine, W: String;
   Words: TStringList;
   IsoBlock: TIsoBlock;
+  I: Integer;
 
 begin
   try
     IsoBlock:=TIsoBlock.Create();
     try
+      //Prova lettura parametri della riga di comando
+      if TMBCmdLine.HasParams then
+      begin
+        WriteLn('Parametri riga di comando: ',TMBCmdLine.Count);
+        for I:=0 to TMBCmdLine.Count-1 do
+          WriteLn('Parametro ',I,': ',TMBCmdLine.Param[I])
+      end;
       repeat
       Write('cnc>');
       ReadLn(IsoLine);
