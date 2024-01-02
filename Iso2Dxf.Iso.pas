@@ -108,9 +108,14 @@ begin
     Text:=ExtractComments(Value);
     Text:=Normalize(Text);
     ExtractWords(Text);
+  end
+  else
+  begin
+    Words.Clear();
+    Comments.Clear();
   end;
 
-    FBlock := Value
+    FBlock:=Value
 end;
 
 end.
