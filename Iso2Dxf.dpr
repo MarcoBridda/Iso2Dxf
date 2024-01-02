@@ -26,7 +26,7 @@ begin
       if TMBCmdLine.HasParams then
       begin
         WriteLn('Parametri riga di comando: ',TMBCmdLine.Count);
-        for I:=0 to TMBCmdLine.Count-1 do
+        for I:=1 to TMBCmdLine.Count do
           WriteLn('Parametro ',I,': ',TMBCmdLine.Param[I])
       end;
       repeat
