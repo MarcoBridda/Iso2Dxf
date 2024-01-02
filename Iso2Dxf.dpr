@@ -13,38 +13,30 @@ uses
   Iso2Dxf.Iso in 'Iso2Dxf.Iso.pas';
 
 var
-  IsoLine, W: String;
+  CncFile: TStringList;
   Words: TStringList;
   IsoBlock: TIsoBlock;
-  I: Integer;
+  Line: String;
 
 begin
   try
-    IsoBlock:=TIsoBlock.Create();
-    try
-      //Prova lettura parametri della riga di comando
-      if TMBCmdLine.HasParams then
-      begin
-        WriteLn('Parametri riga di comando: ',TMBCmdLine.Count);
-        for I:=1 to TMBCmdLine.Count do
-          WriteLn('Parametro ',I,': ',TMBCmdLine.Param[I])
+    if TMBCmdLine.HasParams then
+    begin
+      IsoBlock:=TIsoBlock.Create();
+      try
+        CncFile:=TStringList.Create();
+        try
+          CncFile.LoadFromFile(TMBCmdline.Param[1]);
+          for Line in CncFile do
+            WriteLn(Line)
+        finally
+          CncFile.Free
+        end;
+      finally
+        IsoBlock.Free
       end;
-      repeat
-      Write('cnc>');
-      ReadLn(IsoLine);
-      if IsoLine<>'' then
-      begin
-        IsoBlock.Block:=IsoLine;
-
-        WriteLn('Hai scritto: ',IsoLine);
-
-        for W in IsoBlock.Words do
-          WriteLn('  ',W);
-      end;
-    until IsoLine='';
-    finally
-      IsoBlock.Free
     end;
+    ReadLn;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
