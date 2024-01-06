@@ -114,6 +114,8 @@ begin
 
   for L in List do
     FWords.Add(TIsoWord(L));
+
+  FWords.Delete(0);
 end;
 
 function TIsoBlock.Normalize(const aBlock: String): String;
@@ -146,7 +148,7 @@ end;
 
 function TIsoWordHelper.GetAddress: Char;
 begin
-  Result:=String(Self)[1]
+  Result:=String(Self)[1];
 end;
 
 function TIsoWordHelper.GetFloatValue: Single;

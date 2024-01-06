@@ -15,7 +15,8 @@ uses
 var
   CncFile: TStringList;
   IsoBlock: TIsoBlock;
-  Line, W: String;
+  Line: String;
+  W: TIsoWord;
 
 begin
   try
@@ -32,7 +33,7 @@ begin
             WriteLn(Line);
             WriteLn('{');
             for W in IsoBlock.Words do
-              WriteLn('  ',W);
+              WriteLn('  ',W,' - ', W.Address,' = ',W.Value);
             WriteLn('}');
             WriteLn;
           end;
