@@ -4,29 +4,45 @@ unit Iso2Dxf.Iso;
 interface
 
 uses
-  System.Classes, System.SysUtils;
+  System.Classes, System.SysUtils, Generics.Collections;
 
-type TIsoBlock = class
-private
-  FBlock: String;
-  FWords: TStringList;
-  FComments: TStringList;
+type
+  TIsoAddress = 'A'..'Z';
+  TIsoWord = type String;
+  TIsoWords = TList<TIsoWord>;
 
-  //Utilità
-  function ExtractComments(const aBlock: String): String;
-  function Normalize(const aBlock: String): String;
-  procedure ExtractWords(const aBlock: String);
+  TIsoWordHelper = record helper for TIsoWord
+  private
+    function GetAddress: Char;
+    function GetValue: String;
+  public
+    //Per il momento le proprietà sono read-only
+    property Address: Char read GetAddress;
+    property Value: String read GetValue;
+  end;
 
-  //Accesso alle proprietà
-  procedure SetBlock(const Value: String);
-public
-  constructor Create(aBlock: String = '');
-  destructor Destroy; override;
+type
+  TIsoBlock = class
+  private
+    FBlock: String;
+    FWords: TStringList;
+    FComments: TStringList;
 
-  property Block: String read FBlock write SetBlock;
-  property Comments: TStringList read FComments;
-  property Words: TStringList read FWords;
-end;
+    //Utilità
+    function ExtractComments(const aBlock: String): String;
+    function Normalize(const aBlock: String): String;
+    procedure ExtractWords(const aBlock: String);
+
+    //Accesso alle proprietà
+    procedure SetBlock(const Value: String);
+  public
+    constructor Create(aBlock: String = '');
+    destructor Destroy; override;
+
+    property Block: String read FBlock write SetBlock;
+    property Comments: TStringList read FComments;
+    property Words: TStringList read FWords;
+  end;
 
 implementation
 
@@ -116,6 +132,18 @@ begin
   end;
 
     FBlock:=Value
+end;
+
+{ TIsoWordHelper }
+
+function TIsoWordHelper.GetAddress: Char;
+begin
+  Result:=String(Self)[1]
+end;
+
+function TIsoWordHelper.GetValue: String;
+begin
+  Result:=String(Self).Remove(0,1);
 end;
 
 end.
