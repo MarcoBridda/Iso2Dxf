@@ -15,10 +15,16 @@ type
   private
     function GetAddress: Char;
     function GetValue: String;
+    function GetFloatValue: Single;
+    function GetIntValue: Integer;
   public
     //Per il momento le proprietà sono read-only
     property Address: Char read GetAddress;
     property Value: String read GetValue;
+
+    //Tenta di convertire il valore da stringa a intero o float
+    property IntValue: Integer read GetIntValue;
+    property FloatValue: Single read GetFloatValue;
   end;
 
 type
@@ -99,6 +105,7 @@ var
   Text, L: String;
 begin
   Text:=aBlock;
+  FWords.Clear;
 
   for Addr:='A' to 'Z' do
     Text:=Text.Replace(Addr,'@'+Addr,[rfReplaceAll]);
@@ -140,6 +147,16 @@ end;
 function TIsoWordHelper.GetAddress: Char;
 begin
   Result:=String(Self)[1]
+end;
+
+function TIsoWordHelper.GetFloatValue: Single;
+begin
+  Result:=String(Self).ToSingle();
+end;
+
+function TIsoWordHelper.GetIntValue: Integer;
+begin
+  Result:=String(Self).ToInteger();
 end;
 
 function TIsoWordHelper.GetValue: String;
