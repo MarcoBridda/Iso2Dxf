@@ -25,7 +25,7 @@ type
   TIsoBlock = class
   private
     FBlock: String;
-    FWords: TStringList;
+    FWords: TIsoWords;
     FComments: TStringList;
 
     //Utilità
@@ -41,7 +41,7 @@ type
 
     property Block: String read FBlock write SetBlock;
     property Comments: TStringList read FComments;
-    property Words: TStringList read FWords;
+    property Words: TIsoWords read FWords;
   end;
 
 implementation
@@ -50,7 +50,7 @@ implementation
 
 constructor TIsoBlock.Create(aBlock: String);
 begin
-  FWords:=TStringList.Create;
+  FWords:=TIsoWords.Create;
   FComments:=TStringList.Create;
 
   Block:=aBlock;
@@ -95,17 +95,18 @@ end;
 procedure TIsoBlock.ExtractWords(const aBlock: String);
 var
   Addr: Char;
-  Text: String;
+  List: TArray<String>;
+  Text, L: String;
 begin
   Text:=aBlock;
 
   for Addr:='A' to 'Z' do
-    Text:=Text.Replace(Addr,#13#10+Addr+'=',[rfReplaceAll]);
+    Text:=Text.Replace(Addr,'@'+Addr,[rfReplaceAll]);
 
-  FWords.Text:=Text;
+  List:=Text.Split(['@']);
 
-  //Eliminiamo la prima riga che è vuota dato che contiene solo <CR><LF>
-  FWords.Delete(0)
+  for L in List do
+    FWords.Add(TIsoWord(L));
 end;
 
 function TIsoBlock.Normalize(const aBlock: String): String;
