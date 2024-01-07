@@ -12,12 +12,44 @@ uses
   Iso2Dxf.Dxf in 'Iso2Dxf.Dxf.pas',
   Iso2Dxf.Iso in 'Iso2Dxf.Iso.pas';
 
+type
+  T3DFloatPoint = record
+    X, Y, Z: Single;
+
+    constructor Create(const aX, aY, aZ: Single);
+    procedure MoveTo(const aX, aY, aZ: Single);
+    procedure MoveRel(const rX, rY, rZ: Single);
+  end;
+
 var
   CncFile: TStringList;
   IsoBlock: TIsoBlock;
   Line: String;
   W: TIsoWord;
 
+{ T3DFloatPoint }
+
+constructor T3DFloatPoint.Create(const aX, aY, aZ: Single);
+begin
+  self.MoveTo(aX,aY,aZ)
+end;
+
+procedure T3DFloatPoint.MoveRel(const rX, rY, rZ: Single);
+begin
+  X:=X+rX;
+  Y:=Y+rY;
+  Z:=Z+rZ
+end;
+
+procedure T3DFloatPoint.MoveTo(const aX, aY, aZ: Single);
+begin
+  X:=aX;
+  Y:=aY;
+  Z:=aZ
+end;
+
+
+{  -- MAIN --  }
 begin
   try
     if TMBCmdLine.HasParams then
