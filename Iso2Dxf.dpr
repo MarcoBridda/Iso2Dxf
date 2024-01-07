@@ -30,12 +30,15 @@ begin
           for Line in CncFile do
           begin
             IsoBlock.Block:=Line;
-            WriteLn(Line);
-            WriteLn('{');
-            for W in IsoBlock.Words do
-              WriteLn('  ',W,' - ', W.Address,' = ',W.Value);
-            WriteLn('}');
-            WriteLn;
+            if not IsoBlock.IsEmpty then  //Elabora solo se c'è qualcosa
+            begin
+              WriteLn(Line);
+              WriteLn('{');
+              for W in IsoBlock.Words do
+                WriteLn('  ',W,' - ', W.Address,' = ',W.Value);
+              WriteLn('}');
+              WriteLn;
+            end;
           end;
         finally
           CncFile.Free
