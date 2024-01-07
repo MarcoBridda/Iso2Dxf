@@ -28,6 +28,7 @@ var
   Line: String;
   FileName: String;
   W: TIsoWord;
+  Point: T3DFloatPoint;
 
 { T3DFloatPoint }
 
@@ -64,6 +65,11 @@ begin
           CncFile.LoadFromFile(FileName);
           DxfFile:=TDxfFile.Create;
           try
+            //Parte iniziale del dxf
+            DxfFile.BeginEntities();
+            //Un punto 3D messo inizialmente sull'origine degli assi
+            Point:=T3DFloatPoint.Create(0,0,0);
+            //Elaborazione
             for Line in CncFile do
             begin
               IsoBlock.Block:=Line;
@@ -79,6 +85,9 @@ begin
                 WriteLn;
               end;
             end;
+            //Parte finale del dxf e salvataggio
+            DxfFile.EndSection();
+            dxfFile.EndOfFile();
             DxfFile.SaveToFile(ChangeFileExt(FileName,'.dxf'));
           finally
             DxfFile.Free;
