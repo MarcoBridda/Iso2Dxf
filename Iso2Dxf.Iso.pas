@@ -41,6 +41,7 @@ type
 
     //Accesso alle proprietà
     procedure SetBlock(const Value: String);
+    function GetIsEmpty: Boolean;
   public
     constructor Create(aBlock: String = '');
     destructor Destroy; override;
@@ -48,6 +49,7 @@ type
     property Block: String read FBlock write SetBlock;
     property Comments: TStringList read FComments;
     property Words: TIsoWords read FWords;
+    property IsEmpty: Boolean read GetIsEmpty;
   end;
 
 implementation
@@ -116,6 +118,11 @@ begin
     FWords.Add(TIsoWord(L));
 
   FWords.Delete(0);
+end;
+
+function TIsoBlock.GetIsEmpty: Boolean;
+begin
+  Result:=Block.IsEmpty
 end;
 
 function TIsoBlock.Normalize(const aBlock: String): String;
