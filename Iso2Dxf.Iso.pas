@@ -160,12 +160,12 @@ end;
 
 function TIsoWordHelper.GetFloatValue: Single;
 begin
-  Result:=String(Self).ToSingle();
+  Result:=String(Self.Value).ToSingle();
 end;
 
 function TIsoWordHelper.GetIntValue: Integer;
 begin
-  Result:=String(Self).ToInteger();
+  Result:=String(Self.Value).ToInteger();
 end;
 
 function TIsoWordHelper.GetValue: String;
