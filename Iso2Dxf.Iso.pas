@@ -4,7 +4,8 @@ unit Iso2Dxf.Iso;
 interface
 
 uses
-  System.Classes, System.SysUtils, Generics.Collections;
+  System.Classes, System.SysUtils, Generics.Collections,
+  Iso2Dxf.Utils;
 
 type
   TIsoAddress = 'A'..'Z';

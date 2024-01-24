@@ -4,7 +4,8 @@ unit Iso2Dxf.Dxf;
 interface
 
 uses
-  System.Classes, System.SysUtils;
+  System.Classes, System.SysUtils,
+  Iso2Dxf.Utils;
 
 type
   TDxfFile = class
