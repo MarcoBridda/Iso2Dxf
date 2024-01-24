@@ -10,7 +10,8 @@ uses
   System.Classes,
   MBSoft.System,
   Iso2Dxf.Dxf in 'Iso2Dxf.Dxf.pas',
-  Iso2Dxf.Iso in 'Iso2Dxf.Iso.pas';
+  Iso2Dxf.Iso in 'Iso2Dxf.Iso.pas',
+  Iso2Dxf.Utils in 'Iso2Dxf.Utils.pas';
 
 type
   T3DFloatPoint = record

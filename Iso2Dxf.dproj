@@ -92,6 +92,7 @@
         </DelphiCompile>
         <DCCReference Include="Iso2Dxf.Dxf.pas"/>
         <DCCReference Include="Iso2Dxf.Iso.pas"/>
+        <DCCReference Include="Iso2Dxf.Utils.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
