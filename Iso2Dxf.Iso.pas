@@ -18,6 +18,7 @@ type
     function GetValue: String;
     function GetFloatValue: Single;
     function GetIntValue: Integer;
+    function GetStringValue: String;
   public
     //Un metodo che restituisce le impostazioni di stampa dei float
     function GetFloatSettings: TFloatSettings;
@@ -29,6 +30,8 @@ type
     //Tenta di convertire il valore da stringa a intero o float
     property IntValue: Integer read GetIntValue;
     property FloatValue: Single read GetFloatValue;
+    //Conversione del valore in stringa usando le impostazioni di GetFloatSettings
+    property StringValue: String read GetStringValue;
   end;
 
 type
@@ -179,6 +182,11 @@ end;
 function TIsoWordHelper.GetIntValue: Integer;
 begin
   Result:=Round(Self.FloatValue)
+end;
+
+function TIsoWordHelper.GetStringValue: String;
+begin
+  Result:=GetFloatSettings.FloatToStr(Self.GetFloatValue);
 end;
 
 function TIsoWordHelper.GetValue: String;

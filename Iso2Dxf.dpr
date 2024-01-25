@@ -80,7 +80,7 @@ begin
                 WriteLn('{');
                 for W in IsoBlock.Words do
                 begin
-                  WriteLn('  ',W,' - ', W.Address,' = ',W.Value);
+                  WriteLn('  ',W,' - ', W.Address,' = ',W.StringValue);
                 end;
                 WriteLn('}');
                 WriteLn;
