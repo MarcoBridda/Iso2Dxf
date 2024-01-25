@@ -173,7 +173,7 @@ end;
 
 function TIsoWordHelper.GetFloatValue: Single;
 begin
-  Result:=String(Self.Value).ToSingle();
+  Result:=GetFloatSettings.StrToFloat(String(Self.Value))
 end;
 
 function TIsoWordHelper.GetIntValue: Integer;
