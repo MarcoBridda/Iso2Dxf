@@ -19,6 +19,9 @@ type
     function GetFloatValue: Single;
     function GetIntValue: Integer;
   public
+    //Un metodo che restituisce le impostazioni di stampa dei float
+    function GetFloatSettings: TFloatSettings;
+
     //Per il momento le proprietà sono read-only
     property Address: Char read GetAddress;
     property Value: String read GetValue;
@@ -157,6 +160,15 @@ end;
 function TIsoWordHelper.GetAddress: Char;
 begin
   Result:=String(Self)[1];
+end;
+
+function TIsoWordHelper.GetFloatSettings: TFloatSettings;
+begin
+  Result.Format:=ffFixed;
+  Result.Precision:=5;
+  Result.Digits:=3;
+  Result.Settings:=TFormatSettings.Create;
+  Result.Settings.DecimalSeparator:='.';
 end;
 
 function TIsoWordHelper.GetFloatValue: Single;
