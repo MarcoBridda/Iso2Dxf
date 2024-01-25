@@ -178,7 +178,7 @@ end;
 
 function TIsoWordHelper.GetIntValue: Integer;
 begin
-  Result:=String(Self.Value).ToInteger();
+  Result:=Round(Self.FloatValue)
 end;
 
 function TIsoWordHelper.GetValue: String;
