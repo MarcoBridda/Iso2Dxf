@@ -22,6 +22,7 @@ var
   FileName: String;
   W: TIsoWord;
   Point: TPoint3D;
+  IsMilling: Boolean;
 
 {  -- MAIN --  }
 begin
@@ -38,6 +39,11 @@ begin
           try
             //Parte iniziale del dxf
             DxfFile.BeginEntities();
+
+            //Inizializzazione
+            Point:=TPoint3D.Zero;
+            IsMilling:=false;
+
             //Elaborazione
             for Line in CncFile do
             begin
