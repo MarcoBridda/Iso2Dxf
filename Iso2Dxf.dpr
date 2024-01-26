@@ -8,6 +8,7 @@ uses
   System.SysUtils,
   System.Types,
   System.Classes,
+  System.Math.Vectors,
   MBSoft.System,
   Iso2Dxf.Dxf in 'Iso2Dxf.Dxf.pas',
   Iso2Dxf.Iso in 'Iso2Dxf.Iso.pas',
@@ -20,7 +21,7 @@ var
   Line: String;
   FileName: String;
   W: TIsoWord;
-  Point: T3DFloatPoint;
+  Point: TPoint3D;
 
 {  -- MAIN --  }
 begin
