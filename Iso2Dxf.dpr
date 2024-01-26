@@ -13,15 +13,6 @@ uses
   Iso2Dxf.Iso in 'Iso2Dxf.Iso.pas',
   Iso2Dxf.Utils in 'Iso2Dxf.Utils.pas';
 
-type
-  T3DFloatPoint = record
-    X, Y, Z: Single;
-
-    constructor Create(const aX, aY, aZ: Single);
-    procedure MoveTo(const aX, aY, aZ: Single);
-    procedure MoveRel(const rX, rY, rZ: Single);
-  end;
-
 var
   CncFile: TStringList;
   IsoBlock: TIsoBlock;
@@ -30,28 +21,6 @@ var
   FileName: String;
   W: TIsoWord;
   Point: T3DFloatPoint;
-
-{ T3DFloatPoint }
-
-constructor T3DFloatPoint.Create(const aX, aY, aZ: Single);
-begin
-  self.MoveTo(aX,aY,aZ)
-end;
-
-procedure T3DFloatPoint.MoveRel(const rX, rY, rZ: Single);
-begin
-  X:=X+rX;
-  Y:=Y+rY;
-  Z:=Z+rZ
-end;
-
-procedure T3DFloatPoint.MoveTo(const aX, aY, aZ: Single);
-begin
-  X:=aX;
-  Y:=aY;
-  Z:=aZ
-end;
-
 
 {  -- MAIN --  }
 begin
@@ -68,8 +37,6 @@ begin
           try
             //Parte iniziale del dxf
             DxfFile.BeginEntities();
-            //Un punto 3D messo inizialmente sull'origine degli assi
-            Point:=T3DFloatPoint.Create(0,0,0);
             //Elaborazione
             for Line in CncFile do
             begin
