@@ -24,6 +24,11 @@ var
   Point: TPoint3D;
   IsMilling: Boolean;
 
+function GetFormattedPoint(const P: TPoint3D; const Format: TFloatSettings): String;
+begin
+  Result:='(0,0,0)' //Facciamo una prova...
+end;
+
 {  -- MAIN --  }
 begin
   try
@@ -55,7 +60,16 @@ begin
                 for W in IsoBlock.Words do
                 begin
                   WriteLn('  ',W,' - ', W.Address,' = ',W.StringValue);
+
+                  //Aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
+                  case W.Address of
+                    'X': Point.X:=W.FloatValue;
+                    'Y': Point.Y:=W.FloatValue;
+                    'Z': Point.Z:=W.FloatValue
+                  end;
+
                 end;
+                WriteLn('Posizione attuale: (',Point.X,':',Point.Y,':',Point.Z,')');
                 WriteLn('}');
                 WriteLn;
               end;
