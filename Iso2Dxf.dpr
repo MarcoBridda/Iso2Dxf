@@ -75,7 +75,8 @@ begin
                   end;
 
                 end;
-                WriteLn('Posizione attuale: ', GetFormattedPoint(Point,W.GetFloatSettings));
+                WriteLn;
+                WriteLn('  Posizione attuale: ', GetFormattedPoint(Point,W.GetFloatSettings));
                 WriteLn('}');
                 WriteLn;
               end;
