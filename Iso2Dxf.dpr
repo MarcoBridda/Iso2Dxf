@@ -26,7 +26,13 @@ var
 
 function GetFormattedPoint(const P: TPoint3D; const Format: TFloatSettings): String;
 begin
-  Result:='(0,0,0)' //Facciamo una prova...
+  //Prima definiamo un pattern
+  Result:='(X:Y:Z)';
+
+  //Ora sostituiamo i valoro formattati nel pattern
+  Result:=Result.Replace('X',Format.FloatToStr(P.X),[]);
+  Result:=Result.Replace('Y',Format.FloatToStr(P.Y),[]);
+  Result:=Result.Replace('Z',Format.FloatToStr(P.Z),[]);
 end;
 
 {  -- MAIN --  }
