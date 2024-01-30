@@ -23,7 +23,7 @@ type
     //Metodi per aggiungere elementi specifici
     procedure BeginEntities();
     procedure BeginPolyline(const IsClosed: Boolean = false);
-    procedure AddVertex(const X,Y: Integer);
+    procedure AddVertex(const X,Y: Single);
     procedure EndPolyline();
     procedure EndSection();
     procedure EndOfFile();
@@ -59,13 +59,13 @@ begin
   end;
 end;
 
-procedure TDxfFile.AddVertex(const X, Y: Integer);
+procedure TDxfFile.AddVertex(const X, Y: Single);
 begin
   Add(0,'VERTEX');
   Add(8,'0');   //Layer
-  Add(10,X.ToString());
-  Add(20,Y.ToString());
-  Add(30,'0');
+  Add(10,FFloatSettings.FloatToStr(X));
+  Add(20,FFloatSettings.FloatToStr(Y));
+  Add(30,FFloatSettings.FloatToStr(0));
 end;
 
 procedure TDxfFile.BeginEntities;
