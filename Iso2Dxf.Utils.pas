@@ -37,6 +37,11 @@ interface
     function ToPointF: TPointF;
   end;
 
+  //Un record helper per il tipo TPolygon per aggiungere e togliere punti
+  TPolygonHelper = record helper for TPolygon
+
+  end;
+
 implementation
 
 { TFloatSettings }
