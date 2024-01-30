@@ -19,6 +19,9 @@ interface
     Digits: Integer;
     Settings: TFormatSettings;
 
+    //Restituisce le impostazioni di default
+    class function Default: TFloatSettings; static;
+
     function StrToFloat(const Value: String): Single;
     function FloatToStr(const Value: Single): String;
 
@@ -55,6 +58,15 @@ interface
 implementation
 
 { TFloatSettings }
+
+class function TFloatSettings.Default: TFloatSettings;
+begin
+  Result.Format:=ffFixed;
+  Result.Precision:=5;
+  Result.Digits:=3;
+  Result.Settings:=TFormatSettings.Create;
+  Result.Settings.DecimalSeparator:='.';
+end;
 
 function TFloatSettings.FloatToStr(const Value: Single): String;
 begin

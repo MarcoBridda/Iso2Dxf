@@ -167,11 +167,7 @@ end;
 
 function TIsoWordHelper.GetFloatSettings: TFloatSettings;
 begin
-  Result.Format:=ffFixed;
-  Result.Precision:=5;
-  Result.Digits:=3;
-  Result.Settings:=TFormatSettings.Create;
-  Result.Settings.DecimalSeparator:='.';
+  Result:=TFloatSettings.Default
 end;
 
 function TIsoWordHelper.GetFloatValue: Single;
