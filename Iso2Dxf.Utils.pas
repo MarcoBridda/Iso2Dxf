@@ -27,7 +27,7 @@ interface
 
   TPoint3DHelper = record helper for TPoint3D
   private
-    const DEFAULT_PATTERN = '(X:Y:Z)';
+    const DEFAULT_PATTERN = '(X; Y; Z)';
   public
     function ToString(const Format: TFloatSettings; const Pattern: String = DEFAULT_PATTERN): String;
   end;
