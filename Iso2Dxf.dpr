@@ -67,6 +67,8 @@ begin
                 end;
                 WriteLn;
                 WriteLn('  Posizione attuale: ', Point.ToString(W.GetFloatSettings));
+                //Per il momento aggiungiamo tutti i punti senza considerare G0 e G1
+                Polyline.Add(Point.ToPointF);
                 WriteLn('}');
                 WriteLn;
               end;
