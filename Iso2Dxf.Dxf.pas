@@ -53,7 +53,8 @@ begin
   begin
     BeginPolyline();
 
-    //Aggiungi vertici
+    for Vertex in List do
+      AddVertex(Vertex.X, Vertex.Y);
 
     EndPolyline();
   end;
