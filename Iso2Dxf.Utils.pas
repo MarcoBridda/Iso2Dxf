@@ -47,6 +47,9 @@ interface
 
     //Vera se la variabile non contiene elementi
     function IsEmpty: Boolean;
+
+    //Vera se la variabile contiene almeno 2 elementi (almeno una linea)
+    function IsPolyline: Boolean;
   end;
 
 implementation
@@ -120,6 +123,11 @@ end;
 function TPolygonHelper.IsEmpty: Boolean;
 begin
   Result:=Length(Self)=0
+end;
+
+function TPolygonHelper.IsPolyline: Boolean;
+begin
+  Result:=Length(Self)>=2;
 end;
 
 end.
