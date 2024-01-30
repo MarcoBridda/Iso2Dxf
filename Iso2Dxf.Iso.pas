@@ -116,15 +116,18 @@ begin
   Text:=aBlock;
   FWords.Clear;
 
-  for Addr:='A' to 'Z' do
-    Text:=Text.Replace(Addr,'@'+Addr,[rfReplaceAll]);
+  if not aBlock.IsEmpty then
+  begin
+    for Addr:='A' to 'Z' do
+      Text:=Text.Replace(Addr,'@'+Addr,[rfReplaceAll]);
 
-  List:=Text.Split(['@']);
+    List:=Text.Split(['@']);
 
-  for L in List do
-    FWords.Add(TIsoWord(L));
+    for L in List do
+      FWords.Add(TIsoWord(L));
 
-  FWords.Delete(0);
+    FWords.Delete(0);
+  end;
 end;
 
 function TIsoBlock.GetIsEmpty: Boolean;
