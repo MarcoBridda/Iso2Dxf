@@ -74,4 +74,18 @@ begin
   Result:=Result.Replace('Z',Format.FloatToStr(P.Z),[]);
 end;
 
+{ TPoint3DHelper }
+
+function TPoint3DHelper.ToString(const Format: TFloatSettings;
+  const Pattern: String): String;
+begin
+  //Per sicurezza trasformiamo comunque le lettere degli assi in maiuscolo
+  Result:=Pattern.ToUpper();
+
+  //Ora sostituiamo i valori formattati nel pattern
+  Result:=Result.Replace('X',Format.FloatToStr(Self.X),[]);
+  Result:=Result.Replace('Y',Format.FloatToStr(Self.Y),[]);
+  Result:=Result.Replace('Z',Format.FloatToStr(Self.Z),[]);
+end;
+
 end.
