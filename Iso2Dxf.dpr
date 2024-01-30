@@ -73,6 +73,8 @@ begin
                 WriteLn;
               end;
             end;
+            //Inserisci la polilinea che hai trovato
+            Dxffile.AddPolyline(Polyline);
             //Parte finale del dxf e salvataggio
             DxfFile.EndSection();
             dxfFile.EndOfFile();
