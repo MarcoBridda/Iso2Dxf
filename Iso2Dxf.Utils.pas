@@ -25,6 +25,13 @@ interface
     function NormalizeFloatStr(Value: String): String;
   end;
 
+  TPoint3DHelper = record helper for TPoint3D
+  private
+    const DEFAULT_PATTERN = '(X:Y:Z)';
+  public
+    function ToString(const Format: TFloatSettings; const Pattern: String = DEFAULT_PATTERN): String;
+  end;
+
 //****************************************************************************
 function GetFormattedPoint(const P: TPoint3D; const Format: TFloatSettings): String;
 
