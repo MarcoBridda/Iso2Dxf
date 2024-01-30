@@ -39,6 +39,8 @@ interface
 
   //Un record helper per il tipo TPolygon per aggiungere e togliere punti
   TPolygonHelper = record helper for TPolygon
+    //Pulisce l'array eliminado tutti i punti
+    procedure Clear;
     //Aggiunge un punto alla fine del poligono solo se non è uguale al precedente
     procedure Add(const Point: TPointF);
   end;
@@ -104,6 +106,11 @@ begin
     Self[MaxI]:=Point
   end;
 
+end;
+
+procedure TPolygonHelper.Clear;
+begin
+  SetLength(Self,0);
 end;
 
 end.
