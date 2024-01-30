@@ -41,8 +41,12 @@ interface
   TPolygonHelper = record helper for TPolygon
     //Pulisce l'array eliminado tutti i punti
     procedure Clear;
+
     //Aggiunge un punto alla fine del poligono solo se non è uguale al precedente
     procedure Add(const Point: TPointF);
+
+    //Vera se la variabile non contiene elementi
+    function IsEmpty: Boolean;
   end;
 
 implementation
@@ -111,6 +115,11 @@ end;
 procedure TPolygonHelper.Clear;
 begin
   SetLength(Self,0);
+end;
+
+function TPolygonHelper.IsEmpty: Boolean;
+begin
+  Result:=Length(Self)=0
 end;
 
 end.
