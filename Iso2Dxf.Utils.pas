@@ -32,9 +32,6 @@ interface
     function ToString(const Format: TFloatSettings; const Pattern: String = DEFAULT_PATTERN): String;
   end;
 
-//****************************************************************************
-function GetFormattedPoint(const P: TPoint3D; const Format: TFloatSettings): String;
-
 implementation
 
 { TFloatSettings }
@@ -60,18 +57,6 @@ end;
 function TFloatSettings.StrToFloat(const Value: String): Single;
 begin
   Result:=System.SysUtils.StrToFloat(Value,Settings)
-end;
-
-//****************************************************************************
-function GetFormattedPoint(const P: TPoint3D; const Format: TFloatSettings): String;
-begin
-  //Prima definiamo un pattern
-  Result:='(X:Y:Z)';
-
-  //Ora sostituiamo i valoro formattati nel pattern
-  Result:=Result.Replace('X',Format.FloatToStr(P.X),[]);
-  Result:=Result.Replace('Y',Format.FloatToStr(P.Y),[]);
-  Result:=Result.Replace('Z',Format.FloatToStr(P.Z),[]);
 end;
 
 { TPoint3DHelper }
