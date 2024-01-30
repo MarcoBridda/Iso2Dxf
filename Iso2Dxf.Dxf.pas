@@ -4,7 +4,7 @@ unit Iso2Dxf.Dxf;
 interface
 
 uses
-  System.Classes, System.SysUtils,
+  System.Classes, System.Types, System.SysUtils, System.Math.Vectors,
   Iso2Dxf.Utils;
 
 type
@@ -27,6 +27,9 @@ type
     procedure EndSection();
     procedure EndOfFile();
 
+    //Aggiunge un' intera polilinea prendendo i punti da un array TPolygon
+    procedure AddPolyline(List : TPolygon);
+
     //Salva il Dxf sul disco
     procedure SaveToFile(const FileName: string);
   end;
@@ -39,6 +42,20 @@ procedure TDxfFile.Add(const Code: Integer; const Value: String);
 begin
   FLines.Add('  ' + Code.ToString);
   FLines.Add(Value);
+end;
+
+procedure TDxfFile.AddPolyline(List: TPolygon);
+var
+  Vertex: TPointF;
+begin
+  if List.IsPolyline then
+  begin
+    BeginPolyline();
+
+    //Aggiungi vertici
+
+    EndPolyline();
+  end;
 end;
 
 procedure TDxfFile.AddVertex(const X, Y: Integer);
