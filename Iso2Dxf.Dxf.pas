@@ -11,6 +11,7 @@ type
   TDxfFile = class
   private
     FLines: TstringList;
+    FFloatSettings: TFloatSettings;
 
     //Le informazioni vanno a paio: un codice numerico e un valore associato
     //ma vanno scritte su due righe separate
@@ -89,6 +90,9 @@ end;
 constructor TDxfFile.Create;
 begin
   FLines:=TStringList.Create;
+
+  //Inizializza alle impostazioni di default
+  FFloatSettings:=TFloatSettings.Default
 end;
 
 destructor TDxfFile.Destroy;
