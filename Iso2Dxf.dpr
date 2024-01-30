@@ -23,6 +23,7 @@ var
   W: TIsoWord;
   Point: TPoint3D;
   IsMilling: Boolean;
+  Polyline: TPolygon;
 
 {  -- MAIN --  }
 begin
