@@ -7,7 +7,7 @@ unit Iso2Dxf.Utils;
 interface
 
   uses
-    System.SysUtils, System.Math.Vectors;
+    System.Types, System.SysUtils, System.Math.Vectors;
 
   type
   //Visto che in più punti si converte da stringa a Single e viceversa, e sempre
@@ -25,11 +25,16 @@ interface
     function NormalizeFloatStr(Value: String): String;
   end;
 
+  //Record helper che raggruppa metodi personalizzati utili a manipolare i punti in 3D
   TPoint3DHelper = record helper for TPoint3D
   private
     const DEFAULT_PATTERN = '(X; Y; Z)';
   public
+    //restituisce una stringa con le coordinate dei punti formattate in modo personalizzato
     function ToString(const Format: TFloatSettings; const Pattern: String = DEFAULT_PATTERN): String;
+
+    //Converte un TPoint3D in un TPointF (2D) eliminando la Z
+    function ToPointF: TPointF;
   end;
 
 implementation
@@ -60,6 +65,11 @@ begin
 end;
 
 { TPoint3DHelper }
+
+function TPoint3DHelper.ToPointF: TPointF;
+begin
+  Result:=PointF(Self.X,Self.Y)
+end;
 
 function TPoint3DHelper.ToString(const Format: TFloatSettings;
   const Pattern: String): String;
