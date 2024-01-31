@@ -18,6 +18,10 @@ uses
   MBSoft.System, MBSoft.System.SysUtils,
   Iso2Dxf.Dxf, Iso2Dxf.Iso, Iso2Dxf.Utils;
 
+//Una classe di eccezioni personalizzata per il programma principale
+type
+  EIso2DxfMain = class(Exception);
+
 var
   CncFile: TStringList;
   IsoBlock: TIsoBlock;
