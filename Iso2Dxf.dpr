@@ -15,7 +15,7 @@ program Iso2Dxf;
 
 uses
   System.SysUtils, System.Classes, System.Math.Vectors,
-  MBSoft.System,
+  MBSoft.System, MBSoft.System.SysUtils,
   Iso2Dxf.Dxf, Iso2Dxf.Iso, Iso2Dxf.Utils;
 
 var
@@ -28,6 +28,18 @@ var
   Point: TPoint3D;
   IsMilling: Boolean;
   Polyline: TPolygon;
+
+//un help che stampa la sintassi di chiamata dell'utility con la possibilità di
+//stampare anche un messaggio di errore personalizzato
+procedure Help(const ErrorMsg: String = '');
+begin
+  WriteLn('Iso2Dxf Versione 1.0.0.0');
+  WriteLn(TCopyInfo.GetLabel(2024));
+  WriteLn;
+  WriteLn('Sintassi: ISO2DXF isofile.cnc');
+  writeLn;
+  writeLn(ErrorMsg)
+end;
 
 {  -- MAIN --  }
 begin
@@ -96,7 +108,12 @@ begin
     end;
   except
     on E: Exception do
+    begin
+      Help(E.Message);
+    {$IFDEF DEBUG}
       Writeln(E.ClassName, ': ', E.Message);
+    {$ENDIF}
+    end;
   end;
   {$IFDEF DEBUG}
     ReadLn
