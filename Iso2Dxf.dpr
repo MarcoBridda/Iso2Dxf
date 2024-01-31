@@ -15,7 +15,7 @@ program Iso2Dxf;
 
 uses
   System.SysUtils, System.Classes, System.Math.Vectors,
-  MBSoft.System, MBSoft.System.SysUtils,
+  MBSoft.System, MBSoft.System.SysUtils, MBSoft.System.IOUtils,
   Iso2Dxf.Dxf, Iso2Dxf.Iso, Iso2Dxf.Utils;
 
 //Una classe di eccezioni personalizzata per il programma principale
@@ -27,7 +27,7 @@ var
   IsoBlock: TIsoBlock;
   DxfFile: TDxfFile;
   Line: String;
-  FileName: String;
+  FileName: TFileName;
   W: TIsoWord;
   Point: TPoint3D;
   IsMilling: Boolean;
@@ -48,6 +48,16 @@ end;
 {  -- MAIN --  }
 begin
   try
+    //No parametri o troppi parametri
+    if (not TMBCmdLine.HasParams) or (TMBCmdLine.Count>1) then
+      raise EIso2DxfMain.Create('Indicare il percorso di un file CNC');
+
+    FileName:=TMBCmdLine.Param[1];
+
+    //Percorso non valido
+    if not Filename.Exists then
+      raise EIso2DxfMain.Create('Percorso non valido');
+
     if TMBCmdLine.HasParams then
     begin
       IsoBlock:=TIsoBlock.Create();
