@@ -94,9 +94,11 @@ begin
         IsoBlock.Free
       end;
     end;
-    ReadLn;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
   end;
+  {$IFDEF DEBUG}
+    ReadLn
+  {$ENDIF}
 end.

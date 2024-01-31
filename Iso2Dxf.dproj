@@ -78,7 +78,6 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
-        <Debugger_RunParams>&quot;C:\Users\Marco\Documents\MBSoft\Delphi 10\Project\Iso2Dxf\Prova.cnc&quot;</Debugger_RunParams>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1040</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=MBSoft;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=Iso2Dxf;LegalCopyright=MBSoft (2024);LegalTrademarks=MBSoft;OriginalFilename=Iso2Dxf;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=Utility per la conversione di un file ISO in un DXF</VerInfo_Keys>
