@@ -5,14 +5,9 @@ program Iso2Dxf;
 {$R *.res}
 
 uses
-  System.SysUtils,
-  System.Types,
-  System.Classes,
-  System.Math.Vectors,
+  System.SysUtils, System.Classes, System.Math.Vectors,
   MBSoft.System,
-  Iso2Dxf.Dxf in 'Iso2Dxf.Dxf.pas',
-  Iso2Dxf.Iso in 'Iso2Dxf.Iso.pas',
-  Iso2Dxf.Utils in 'Iso2Dxf.Utils.pas';
+  Iso2Dxf.Dxf, Iso2Dxf.Iso, Iso2Dxf.Utils;
 
 var
   CncFile: TStringList;
