@@ -56,70 +56,67 @@ begin
 
     //Percorso non valido
     if not Filename.Exists then
-      raise EIso2DxfMain.Create('Percorso non valido');
+      raise EIso2DxfMain.Create('Percorso non valido: ' + FileName);
 
-    if TMBCmdLine.HasParams then
-    begin
-      IsoBlock:=TIsoBlock.Create();
+    //Se tutto va bene proseguiamo
+    CncFile:=TStringList.Create();
+    try
+      CncFile.LoadFromFile(FileName);
+      DxfFile:=TDxfFile.Create;
       try
-        CncFile:=TStringList.Create();
+        //Parte iniziale del dxf
+        DxfFile.BeginEntities();
+
+        //Inizializzazione
+        Point:=TPoint3D.Zero;
+        IsMilling:=false;
+
+        IsoBlock:=TIsoBlock.Create();
         try
-          FileName:=TMBCmdline.Param[1];
-          CncFile.LoadFromFile(FileName);
-          DxfFile:=TDxfFile.Create;
-          try
-            //Parte iniziale del dxf
-            DxfFile.BeginEntities();
-
-            //Inizializzazione
-            Point:=TPoint3D.Zero;
-            IsMilling:=false;
-
-            //Elaborazione
-            for Line in CncFile do
+          //Elaborazione
+          for Line in CncFile do
+          begin
+            IsoBlock.Block:=Line;
+            if not IsoBlock.IsEmpty then  //Elabora solo se c'è qualcosa
             begin
-              IsoBlock.Block:=Line;
-              if not IsoBlock.IsEmpty then  //Elabora solo se c'è qualcosa
+              WriteLn(Line);
+              WriteLn('{');
+              for W in IsoBlock.Words do
               begin
-                WriteLn(Line);
-                WriteLn('{');
-                for W in IsoBlock.Words do
-                begin
-                  WriteLn('  ',W,' - ', W.Address,' = ',W.StringValue);
+                WriteLn('  ',W,' - ', W.Address,' = ',W.StringValue);
 
-                  //Aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
-                  case W.Address of
-                    'X': Point.X:=W.FloatValue;
-                    'Y': Point.Y:=W.FloatValue;
-                    'Z': Point.Z:=W.FloatValue
-                  end;
-
+                //Aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
+                case W.Address of
+                  'X': Point.X:=W.FloatValue;
+                  'Y': Point.Y:=W.FloatValue;
+                  'Z': Point.Z:=W.FloatValue
                 end;
-                WriteLn;
-                WriteLn('  Posizione attuale: ', Point.ToString(W.GetFloatSettings));
-                //Per il momento aggiungiamo tutti i punti senza considerare G0 e G1
-                Polyline.Add(Point.ToPointF);
-                WriteLn('}');
-                WriteLn;
-              end;
-            end;
-            //Inserisci la polilinea che hai trovato
-            Dxffile.AddPolyline(Polyline);
-            //Parte finale del dxf e salvataggio
-            DxfFile.EndSection();
-            dxfFile.EndOfFile();
-            DxfFile.SaveToFile(ChangeFileExt(FileName,'.dxf'));
-          finally
-            DxfFile.Free;
-          end;
 
+              end;
+              WriteLn;
+              WriteLn('  Posizione attuale: ', Point.ToString(W.GetFloatSettings));
+              //Per il momento aggiungiamo tutti i punti senza considerare G0 e G1
+              Polyline.Add(Point.ToPointF);
+              WriteLn('}');
+              WriteLn;
+            end;
+          end;
+          //Inserisci la polilinea che hai trovato
+          DxfFile.AddPolyline(Polyline);
+          //Parte finale del dxf e salvataggio
+          DxfFile.EndSection();
+          DxfFile.EndOfFile();
+          DxfFile.SaveToFile(FileName.ChangeExt('.dxf'))
         finally
-          CncFile.Free
+          IsoBlock.Free
         end;
       finally
-        IsoBlock.Free
+        DxfFile.Free
       end;
+    finally
+      CncFile.Free
     end;
+
   except
     on E: Exception do
     begin
