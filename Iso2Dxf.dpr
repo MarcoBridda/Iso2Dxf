@@ -1,4 +1,13 @@
 program Iso2Dxf;
+//****************************************************************************
+//Utility a riga di comando per trasformare un percorso in linguaggio ISO cnc
+//in un DXF.
+//Il file DXF viene generato nello stesso percorso del file ISO.
+//
+//Versione 1.0.0.0
+//
+//Copyright MBSoft(2024)
+//****************************************************************************
 
 {$APPTYPE CONSOLE}
 
