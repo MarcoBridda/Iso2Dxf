@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{A869D8B2-D984-4D1E-938E-A30EB417C1DF}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Iso2Dxf.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Iso2Dxf">
+        <MSBuild Projects="Iso2Dxf.dproj"/>
+    </Target>
+    <Target Name="Iso2Dxf:Clean">
+        <MSBuild Projects="Iso2Dxf.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Iso2Dxf:Make">
+        <MSBuild Projects="Iso2Dxf.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Iso2Dxf"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Iso2Dxf:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Iso2Dxf:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
