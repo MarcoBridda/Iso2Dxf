@@ -3,7 +3,7 @@
         <ProjectGuid>{A869D8B2-D984-4D1E-938E-A30EB417C1DF}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="Iso2Dxf.dproj">
+        <Projects Include="Iso2Dxf\Iso2Dxf.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -15,13 +15,13 @@
         </BorlandProject>
     </ProjectExtensions>
     <Target Name="Iso2Dxf">
-        <MSBuild Projects="Iso2Dxf.dproj"/>
+        <MSBuild Projects="Iso2Dxf\Iso2Dxf.dproj"/>
     </Target>
     <Target Name="Iso2Dxf:Clean">
-        <MSBuild Projects="Iso2Dxf.dproj" Targets="Clean"/>
+        <MSBuild Projects="Iso2Dxf\Iso2Dxf.dproj" Targets="Clean"/>
     </Target>
     <Target Name="Iso2Dxf:Make">
-        <MSBuild Projects="Iso2Dxf.dproj" Targets="Make"/>
+        <MSBuild Projects="Iso2Dxf\Iso2Dxf.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
         <CallTarget Targets="Iso2Dxf"/>
