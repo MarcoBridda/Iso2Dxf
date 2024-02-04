@@ -17,9 +17,11 @@ uses
   System.SysUtils,
   System.Classes,
   System.Math.Vectors,
+  Winapi.Windows,
   MBSoft.System,
   MBSoft.System.SysUtils,
   MBSoft.System.IOUtils,
+  MBSoft.Winapi.Windows,
   Iso2Dxf.Dxf in 'Source\Iso2Dxf.Dxf.pas',
   Iso2Dxf.Iso in 'Source\Iso2Dxf.Iso.pas',
   Iso2Dxf.Utils in 'Source\Iso2Dxf.Utils.pas';
@@ -48,9 +50,21 @@ var
 //un help che stampa la sintassi di chiamata dell'utility con la possibilità di
 //stampare anche un messaggio di errore personalizzato
 procedure Help(const ErrorMsg: String = '');
+var
+  ExeName: TFileName;
+  ExeInfo: TVSFixedFileInfo;
 begin
-  WriteLn('Iso2Dxf Versione 1.0.0.0');
+  ExeName:=TMBCmdLine.Param[0];
+  ExeInfo.Init(ExeName);
+
+  WriteLn;
+  Write(ExeName.Name,' Versione ',ExeInfo.GetFileVersion.ToString,' ');
   WriteLn(TCopyInfo.GetLabel(2024));
+
+  {$IFDEF DEBUG}
+    WriteLn('[DEBUG MODE]');
+  {$ENDIF}
+
   WriteLn;
   WriteLn('Sintassi: ISO2DXF isofile.cnc');
   writeLn;
@@ -136,9 +150,9 @@ begin
     on E: Exception do
     begin
       Help(E.Message);
-    {$IFDEF DEBUG}
-      Writeln(E.ClassName, ': ', E.Message);
-    {$ENDIF}
+      {$IFDEF DEBUG}
+        Writeln(E.ClassName, ': ', E.Message);
+      {$ENDIF}
     end;
   end;
   {$IFDEF DEBUG}
