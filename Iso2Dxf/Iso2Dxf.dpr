@@ -28,6 +28,12 @@ uses
 type
   EIso2DxfMain = class(Exception);
 
+const
+  //Costanti dei messaggi di errore
+  NO_PARAM_FOUND  = 'Indicare il percorso di un file CNC';
+  TOO_MANY_PARAMS = 'Troppi parametri';
+  INVALID_PATH    = 'Percorso non valido';
+
 var
   CncFile: TStringList;
   IsoBlock: TIsoBlock;
@@ -54,15 +60,18 @@ end;
 {  -- MAIN --  }
 begin
   try
-    //No parametri o troppi parametri
-    if (not TMBCmdLine.HasParams) or (TMBCmdLine.Count>1) then
-      raise EIso2DxfMain.Create('Indicare il percorso di un file CNC');
+    //No parametri
+    if not TMBCmdLine.HasParams then
+      raise EIso2DxfMain.Create(NO_PARAM_FOUND);
+    //troppi parametri
+    if TMBCmdLine.Count>1 then
+      raise EIso2DxfMain.Create(TOO_MANY_PARAMS);
 
     FileName:=TMBCmdLine.Param[1];
 
     //Percorso non valido
     if not Filename.Exists then
-      raise EIso2DxfMain.Create('Percorso non valido: ' + FileName);
+      raise EIso2DxfMain.Create(INVALID_PATH + ': ' + FileName);
 
     //Se tutto va bene proseguiamo
     CncFile:=TStringList.Create();
