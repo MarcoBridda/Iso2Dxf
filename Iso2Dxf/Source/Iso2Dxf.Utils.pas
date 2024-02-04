@@ -113,7 +113,7 @@ end;
 
 function TPoint3DHelper.ToString(const Pattern: String): String;
 begin
-  Result:=Self.ToString(TFloatSettings.Default);
+  Result:=Self.ToString(TFloatSettings.Default, Pattern);
 end;
 
 { TPolygonHelper }
