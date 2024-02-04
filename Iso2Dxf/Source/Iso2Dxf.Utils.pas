@@ -34,7 +34,8 @@ interface
     const DEFAULT_PATTERN = '(X; Y; Z)';
   public
     //restituisce una stringa con le coordinate dei punti formattate in modo personalizzato
-    function ToString(const Format: TFloatSettings; const Pattern: String = DEFAULT_PATTERN): String;
+    function ToString(const Pattern: String = DEFAULT_PATTERN): String; overload;
+    function ToString(const Format: TFloatSettings; const Pattern: String = DEFAULT_PATTERN): String; overload;
 
     //Converte un TPoint3D in un TPointF (2D) eliminando la Z
     function ToPointF: TPointF;
@@ -108,6 +109,11 @@ begin
   Result:=Result.Replace('X',Format.FloatToStr(Self.X),[]);
   Result:=Result.Replace('Y',Format.FloatToStr(Self.Y),[]);
   Result:=Result.Replace('Z',Format.FloatToStr(Self.Z),[]);
+end;
+
+function TPoint3DHelper.ToString(const Pattern: String): String;
+begin
+  Result:=Self.ToString(TFloatSettings.Default);
 end;
 
 { TPolygonHelper }
