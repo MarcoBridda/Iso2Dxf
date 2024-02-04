@@ -68,7 +68,6 @@
         <Manifest_File>(None)</Manifest_File>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
         <DCC_UnitSearchPath>C:\Users\Marco\Documents\MBSoft\Delphi 10\Project\Iso2Dxf\Iso2Dxf\Source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Release>1</VerInfo_Release>
         <DCC_Description>Utility per la conversione di un file ISO in un DXF</DCC_Description>
     </PropertyGroup>
@@ -95,7 +94,6 @@
         <VerInfo_Keys>CompanyName=MBSoft;FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.0;InternalName=Iso2Dxf;LegalCopyright=MBSoft (2024);LegalTrademarks=MBSoft;OriginalFilename=Iso2Dxf;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=Utility per la conversione di un file ISO in un DXF</VerInfo_Keys>
         <Manifest_File>..\(None)</Manifest_File>
         <DCC_Description>Utility per la conversione di un file ISO in un DXF</DCC_Description>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Release>1</VerInfo_Release>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
