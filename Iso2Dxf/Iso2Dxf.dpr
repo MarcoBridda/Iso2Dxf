@@ -71,6 +71,8 @@ end;
 
 {  -- MAIN --  }
 begin
+  //Intanto salutiamo...
+  Hello();
   try
     //No parametri
     if not TMBCmdLine.HasParams then
