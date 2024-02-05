@@ -189,7 +189,15 @@ end;
 
 function TIsoWordHelper.GetStringValue: String;
 begin
-  Result:=GetFloatSettings.FloatToStr(Self.GetFloatValue);
+  if Self.Address in ['A', 'B', 'C', 'U', 'V', 'W', 'X', 'Y', 'Z'] then
+    //Se l'indirizzo corrisponde al nome di un asse, formatta in float,
+    Result:=GetFloatSettings.FloatToStr(Self.GetFloatValue)
+  else if Self.Address in ['F', 'G', 'M', 'N', 'S', 'T'] then
+    //Se sono funzioni macchina formatta come intero
+    Result:=Self.GetIntValue.ToString
+  else
+    //Altrimenti restituisci così com'è
+    Result:=Self.Value
 end;
 
 function TIsoWordHelper.GetValue: String;
