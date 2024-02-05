@@ -113,12 +113,8 @@ begin
             IsoBlock.Block:=Line;
             if not IsoBlock.IsEmpty then  //Elabora solo se c'è qualcosa
             begin
-              WriteLn(Line);
-              WriteLn('{');
               for W in IsoBlock.Words do
               begin
-                WriteLn('  ',W,' - ', W.Address,' = ',W.StringValue);
-
                 //Aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
                 case W.Address of
                   'X': Point.X:=W.FloatValue;
@@ -127,12 +123,8 @@ begin
                 end;
 
               end;
-              WriteLn;
-              WriteLn('  Posizione attuale: ', Point.ToString());
               //Per il momento aggiungiamo tutti i punti senza considerare G0 e G1
               Polyline.Add(Point.ToPointF);
-              WriteLn('}');
-              WriteLn;
             end;
           end;
           //Inserisci la polilinea che hai trovato
