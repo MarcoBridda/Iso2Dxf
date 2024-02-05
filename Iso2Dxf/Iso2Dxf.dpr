@@ -47,31 +47,24 @@ var
   IsMilling: Boolean;
   Polyline: TPolygon;
 
-//un help che stampa la sintassi di chiamata dell'utility con la possibilità di
-//stampare anche un messaggio di errore personalizzato
-procedure Help(const ErrorMsg: String = '');
-var
-  ExeName: TFileName;
-  NamePart: String;
-  ExeInfo: TVSFixedFileInfo;
+//Un messaggio di presentazione da stampare all'avvio dell' applicazione
+procedure Hello;
 begin
-  //Estrai il nome dell'exe e la sua versione
-  ExeName:=TMBCmdLine.Param[0];
-  ExeInfo.Init(ExeName);
-
-  //Estrai solo la parte del nome senza .exe
-  NamePart:=String(ExeName.Name).Remove(High(ExeName.Name)-4);
-
   WriteLn;
-  Write(ExeName.Name,' Versione ',ExeInfo.GetFileVersion.ToString,' ');
+  Write(TAppInfo.ExeName.Name,' Versione ',TAppInfo.ExeInfo.GetFileVersion.ToString,' ');
   WriteLn(TCopyInfo.GetLabel(2024));
 
   {$IFDEF DEBUG}
     WriteLn('[DEBUG MODE]');
   {$ENDIF}
+end;
 
+//un help che stampa la sintassi di chiamata dell'utility con la possibilità di
+//stampare anche un messaggio di errore personalizzato
+procedure Help(const ErrorMsg: String = '');
+begin
   WriteLn;
-  WriteLn('Sintassi: ',NamePart.ToUpper(),' isofile.cnc');
+  WriteLn('Sintassi: ',TAppInfo.NamePart.ToUpper(),' isofile.cnc');
   writeLn;
   writeLn(ErrorMsg)
 end;
