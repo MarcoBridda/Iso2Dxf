@@ -18,6 +18,10 @@ type
 
   TIsoWordHelper = record helper for TIsoWord
   private
+    const
+      CNC_AXES: TSysCharSet = ['A', 'B', 'C', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+      CNC_FUNCTIONS: TSysCharSet = ['F', 'G', 'M', 'N', 'S', 'T'];
+
     function GetAddress: Char;
     function GetValue: String;
     function GetFloatValue: Single;
@@ -189,10 +193,10 @@ end;
 
 function TIsoWordHelper.GetStringValue: String;
 begin
-  if Self.Address in ['A', 'B', 'C', 'U', 'V', 'W', 'X', 'Y', 'Z'] then
+  if CharInSet(Self.Address,CNC_AXES) then
     //Se l'indirizzo corrisponde al nome di un asse, formatta in float,
     Result:=GetFloatSettings.FloatToStr(Self.GetFloatValue)
-  else if Self.Address in ['F', 'G', 'M', 'N', 'S', 'T'] then
+  else if CharInSet(Self.Address,CNC_FUNCTIONS) then
     //Se sono funzioni macchina formatta come intero
     Result:=Self.GetIntValue.ToString
   else
