@@ -1,0 +1,292 @@
+  0
+SECTION
+  2
+HEADER
+  9
+$ACADVER
+  1
+AC1009
+  9
+$INSBASE
+  10
+0
+  20
+0
+  30
+0
+  9
+$HANDLING
+  70
+0
+  9
+$EXTMIN
+  10
+-30
+  20
+0
+  30
+0.0
+  9
+$EXTMAX
+  10
+30
+  20
+15
+  30
+0.0
+  9
+$LIMMIN
+  10
+-30
+  20
+0
+  9
+$LIMMAX
+  10
+30
+  20
+15
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+LTYPE
+  70
+1
+  0
+LTYPE
+  2
+CONTINUOUS
+  70
+0
+  3
+Solid line
+  72
+65
+  73
+0
+  40
+0.0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LAYER
+  70
+2
+  0
+LAYER
+  2
+Layer_0
+  70
+0
+  62
+7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+Layer_1
+  70
+0
+  62
+1
+  6
+CONTINUOUS
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0
+POLYLINE
+  8
+0
+  66
+1
+  70
+1
+  10
+0
+  20
+0
+  30
+0
+  0
+VERTEX
+  8
+0
+  10
+-30
+  20
+15
+  30
+0
+  0
+VERTEX
+  8
+0
+  10
+-30
+  20
+0
+  30
+0
+  0
+VERTEX
+  8
+0
+  10
+-15
+  20
+0
+  30
+0
+  0
+VERTEX
+  8
+0
+  10
+-30
+  20
+15
+  30
+0
+  0
+SEQEND
+  0
+POLYLINE
+  8
+0
+  66
+1
+  70
+1
+  10
+0
+  20
+0
+  30
+0
+  0
+VERTEX
+  8
+0
+  10
+30
+  20
+0
+  30
+0
+  0
+VERTEX
+  8
+0
+  10
+15
+  20
+0
+  30
+0
+  0
+VERTEX
+  8
+0
+  10
+15
+  20
+15
+  30
+0
+  0
+VERTEX
+  8
+0
+  10
+30
+  20
+0
+  30
+0
+  0
+SEQEND
+  0
+POLYLINE
+  8
+Layer_1
+  66
+1
+  70
+1
+  10
+0
+  20
+0
+  30
+0
+  0
+VERTEX
+  8
+Layer_1
+  10
+7.5
+  20
+15
+  30
+0
+  0
+VERTEX
+  8
+Layer_1
+  10
+7.5
+  20
+0
+  30
+0
+  0
+VERTEX
+  8
+Layer_1
+  10
+-7.5
+  20
+0
+  30
+0
+  0
+VERTEX
+  8
+Layer_1
+  10
+-7.50001
+  20
+15
+  30
+0
+  0
+VERTEX
+  8
+Layer_1
+  10
+7.5
+  20
+15
+  30
+0
+  0
+SEQEND
+  0
+ENDSEC
+  0
+EOF
