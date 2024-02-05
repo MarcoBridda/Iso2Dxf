@@ -7,7 +7,8 @@ unit Iso2Dxf.Utils;
 interface
 
   uses
-    System.Types, System.SysUtils, System.Math.Vectors;
+    System.Types, System.SysUtils, System.Math.Vectors, Winapi.Windows,
+    MBSoft.System, MBSoft.System.IOUtils, MBSoft.Winapi.Windows;
 
   type
   //Visto che in più punti si converte da stringa a Single e viceversa, e sempre
@@ -54,6 +55,18 @@ interface
 
     //Vera se la variabile contiene almeno 2 elementi (almeno una linea)
     function IsPolyline: Boolean;
+  end;
+
+  //Una struttura statica per ricavare le info dell'app
+  TAppInfo = record
+  private
+    class function GetExeName: TFileName; static;
+    class function GetNamePart: String; static;
+    class function GetExeInfo: TVSFixedFileInfo; static;
+  public
+    class property ExeName: TFileName read GetExeName;
+    class property NamePart: String read GetNamePart;
+    class property ExeInfo: TVSFixedFileInfo read GetExeInfo;
   end;
 
 implementation
@@ -146,6 +159,23 @@ end;
 function TPolygonHelper.IsPolyline: Boolean;
 begin
   Result:=Length(Self)>=2;
+end;
+
+{ TAppInfo }
+
+class function TAppInfo.GetExeInfo: TVSFixedFileInfo;
+begin
+  Result.Init(TAppInfo.GetExeName)
+end;
+
+class function TAppInfo.GetExeName: TFileName;
+begin
+  Result:=TMBCmdLine.Param[0]
+end;
+
+class function TAppInfo.GetNamePart: String;
+begin
+  Result:=String(TAppInfo.GetExeName.Name).Remove(High(TAppInfo.GetExeName.Name)-4)
 end;
 
 end.
