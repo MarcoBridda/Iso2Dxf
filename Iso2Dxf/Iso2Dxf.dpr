@@ -64,7 +64,7 @@ end;
 procedure Help(const ErrorMsg: String = '');
 begin
   WriteLn;
-  WriteLn('Sintassi: ',TAppInfo.NamePart.ToUpper(),' isofile.cnc');
+  WriteLn('Sintassi: ',TAppInfo.AppName.ToUpper(),' isofile.cnc');
   writeLn;
   writeLn(ErrorMsg)
 end;

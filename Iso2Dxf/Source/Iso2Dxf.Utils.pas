@@ -61,11 +61,11 @@ interface
   TAppInfo = record
   private
     class function GetExeName: TFileName; static;
-    class function GetNamePart: String; static;
+    class function GetAppName: String; static;
     class function GetExeInfo: TVSFixedFileInfo; static;
   public
     class property ExeName: TFileName read GetExeName;
-    class property NamePart: String read GetNamePart;
+    class property AppName: String read GetAppName;
     class property ExeInfo: TVSFixedFileInfo read GetExeInfo;
   end;
 
@@ -173,7 +173,7 @@ begin
   Result:=TMBCmdLine.Param[0]
 end;
 
-class function TAppInfo.GetNamePart: String;
+class function TAppInfo.GetAppName: String;
 begin
   Result:=String(TAppInfo.GetExeName.Name).Remove(High(TAppInfo.GetExeName.Name)-4)
 end;
