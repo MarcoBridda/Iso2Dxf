@@ -98,8 +98,18 @@ type
     property Count: Integer read GetCount;
   end;
 
+  //Implementazione effettiva dell'enumeratore per TIsoFile
   TIsoFileEnumerator = class
-    //
+  private
+    FContainer: TIsoFile;
+    FIndex: Integer;
+  public
+    constructor Create(AContainer : TIsoFile);
+
+    function GetCurrent: TIsoBlock;
+    function MoveNext: Boolean;
+
+    property Current: TIsoBlock read GetCurrent;
   end;
 
 implementation
@@ -278,6 +288,11 @@ begin
   Result:=FBlocks.Count
 end;
 
+function TIsoFile.GetEnumerator: TIsoFileEnumerator;
+begin
+  Result:=TIsoFileEnumerator.Create(self)
+end;
+
 procedure TIsoFile.LoadFromFile(const aFileName: TFileName);
 var
   Lines: TStringList;
@@ -312,6 +327,27 @@ begin
   finally
     Lines.Free
   end;
+end;
+
+{ TIsoFileEnumerator }
+
+constructor TIsoFileEnumerator.Create(AContainer: TIsoFile);
+begin
+  FContainer:=AContainer;
+  FIndex:=-1
+end;
+
+function TIsoFileEnumerator.GetCurrent: TIsoBlock;
+begin
+  Result:=FContainer.Block[FIndex]
+end;
+
+function TIsoFileEnumerator.MoveNext: Boolean;
+begin
+  Result:=FIndex<FContainer.Count;
+
+  if Result then
+    Inc(FIndex)
 end;
 
 end.
