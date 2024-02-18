@@ -71,12 +71,17 @@ type
   private
     //Un file iso-cnc come lista generica di blocchi
     FBlocks: TList<TIsoBlock>;
+
+    //Getter-Setter
+    function GetBlock(Index: Integer): TIsoBlock;
   public
     constructor Create;
     destructor Destroy; override;
 
     procedure LoadFromFile(const aFileName: TFileName);
     procedure SaveToFile(const aFileName: TFileName);
+
+    property Block[Index: Integer]: TIsoBlock read GetBlock;
   end;
 
 implementation
@@ -232,6 +237,11 @@ destructor TIsoFile.Destroy;
 begin
   FBlocks.Free;
   inherited;
+end;
+
+function TIsoFile.GetBlock(Index: Integer): TIsoBlock;
+begin
+  Result:=FBlocks[Index]
 end;
 
 procedure TIsoFile.LoadFromFile(const aFileName: TFileName);
