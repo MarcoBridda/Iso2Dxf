@@ -74,6 +74,9 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+
+    procedure LoadFromFile(const aFileName: TFileName);
+    procedure SaveToFile(const aFileName: TFileName);
   end;
 
 implementation
@@ -229,6 +232,42 @@ destructor TIsoFile.Destroy;
 begin
   FBlocks.Free;
   inherited;
+end;
+
+procedure TIsoFile.LoadFromFile(const aFileName: TFileName);
+var
+  Lines: TStringList;
+  Line: String;
+begin
+  Lines:=TStringList.Create;
+
+  try
+    Lines.LoadFromFile(aFileName);
+
+    FBlocks.Clear;
+    for Line in Lines do
+      FBlocks.Add(TIsoBlock.Create(Line))
+
+  finally
+    Lines.Free
+  end;
+end;
+
+procedure TIsoFile.SaveToFile(const aFileName: TFileName);
+var
+  Lines: TStringList;
+  Block: TIsoBlock;
+begin
+  Lines:=TStringList.Create;
+
+  try
+    for Block in FBlocks do
+      Lines.Add(Block.Block);
+
+    Lines.SaveToFile(aFileName);
+  finally
+    Lines.Free
+  end;
 end;
 
 end.
