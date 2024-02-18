@@ -68,7 +68,12 @@ type
   end;
 
   TIsoFile = class
-    //...
+  private
+    //Un file iso-cnc come lista generica di blocchi
+    FBlocks: TList<TIsoBlock>;
+  public
+    constructor Create;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -211,6 +216,19 @@ end;
 function TIsoWordHelper.GetValue: String;
 begin
   Result:=String(Self).Remove(0,1);
+end;
+
+{ TIsoFile }
+
+constructor TIsoFile.Create;
+begin
+  FBlocks:=TList<TIsoBlock>.Create;
+end;
+
+destructor TIsoFile.Destroy;
+begin
+  FBlocks.Free;
+  inherited;
 end;
 
 end.
