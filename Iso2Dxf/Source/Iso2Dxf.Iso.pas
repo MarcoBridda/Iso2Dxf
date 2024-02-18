@@ -74,6 +74,7 @@ type
 
     //Getter-Setter
     function GetBlock(Index: Integer): TIsoBlock;
+    function GetCount: Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -82,6 +83,7 @@ type
     procedure SaveToFile(const aFileName: TFileName);
 
     property Block[Index: Integer]: TIsoBlock read GetBlock;
+    property Count: Integer read GetCount;
   end;
 
 implementation
@@ -242,6 +244,11 @@ end;
 function TIsoFile.GetBlock(Index: Integer): TIsoBlock;
 begin
   Result:=FBlocks[Index]
+end;
+
+function TIsoFile.GetCount: Integer;
+begin
+  Result:=FBlocks.Count
 end;
 
 procedure TIsoFile.LoadFromFile(const aFileName: TFileName);
