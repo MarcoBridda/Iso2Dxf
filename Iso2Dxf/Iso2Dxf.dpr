@@ -37,10 +37,9 @@ const
   INVALID_PATH    = 'Percorso non valido';
 
 var
-  CncFile: TStringList;
+  CncFile: TIsofile;
   IsoBlock: TIsoBlock;
   DxfFile: TDxfFile;
-  Line: String;
   FileName: TFileName;
   W: TIsoWord;
   Point: TPoint3D;
@@ -88,7 +87,7 @@ begin
       raise EIso2DxfMain.Create(INVALID_PATH + ': ' + FileName);
 
     //Se tutto va bene proseguiamo
-    CncFile:=TStringList.Create();
+    CncFile:=TIsofile.Create();
     try
       CncFile.LoadFromFile(FileName);
       DxfFile:=TDxfFile.Create;
@@ -100,37 +99,31 @@ begin
         Point:=TPoint3D.Zero;
         IsMilling:=false;
 
-        IsoBlock:=TIsoBlock.Create();
-        try
-          //Elaborazione
-          for Line in CncFile do
+        //Elaborazione
+        for IsoBlock in CncFile do
+        begin
+          if not IsoBlock.IsEmpty then  //Elabora solo se c'è qualcosa
           begin
-            IsoBlock.Block:=Line;
-            if not IsoBlock.IsEmpty then  //Elabora solo se c'è qualcosa
+            for W in IsoBlock.Words do
             begin
-              for W in IsoBlock.Words do
-              begin
-                //Aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
-                case W.Address of
-                  'X': Point.X:=W.FloatValue;
-                  'Y': Point.Y:=W.FloatValue;
-                  'Z': Point.Z:=W.FloatValue
-                end;
-
+              //Aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
+              case W.Address of
+                'X': Point.X:=W.FloatValue;
+                'Y': Point.Y:=W.FloatValue;
+                'Z': Point.Z:=W.FloatValue
               end;
-              //Per il momento aggiungiamo tutti i punti senza considerare G0 e G1
-              Polyline.Add(Point.ToPointF);
+
             end;
+            //Per il momento aggiungiamo tutti i punti senza considerare G0 e G1
+            Polyline.Add(Point.ToPointF);
           end;
-          //Inserisci la polilinea che hai trovato
-          DxfFile.AddPolyline(Polyline);
-          //Parte finale del dxf e salvataggio
-          DxfFile.EndSection();
-          DxfFile.EndOfFile();
-          DxfFile.SaveToFile(FileName.ChangeExt('.dxf'))
-        finally
-          IsoBlock.Free
         end;
+        //Inserisci la polilinea che hai trovato
+        DxfFile.AddPolyline(Polyline);
+        //Parte finale del dxf e salvataggio
+        DxfFile.EndSection();
+        DxfFile.EndOfFile();
+        DxfFile.SaveToFile(FileName.ChangeExt('.dxf'))
       finally
         DxfFile.Free
       end;
