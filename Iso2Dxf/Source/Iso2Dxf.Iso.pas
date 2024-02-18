@@ -67,10 +67,17 @@ type
     property IsEmpty: Boolean read GetIsEmpty;
   end;
 
+  //Enumeratore per la classe TIsoFile, in modo da poter scandire i blocchi
+  //anche con un ciclo for-in
+  TIsoFileEnumerator = class;
+
   TIsoFile = class
   private
     //Un file iso-cnc come lista generica di blocchi
     FBlocks: TList<TIsoBlock>;
+
+    //Utilità
+    procedure ClearBlocks;
 
     //Getter-Setter
     function GetBlock(Index: Integer): TIsoBlock;
@@ -79,11 +86,20 @@ type
     constructor Create;
     destructor Destroy; override;
 
+    //Enumeratore
+    function GetEnumerator: TIsoFileEnumerator;
+
+    //Carica e salva dal disco
     procedure LoadFromFile(const aFileName: TFileName);
     procedure SaveToFile(const aFileName: TFileName);
 
+    //Proprietà
     property Block[Index: Integer]: TIsoBlock read GetBlock;
     property Count: Integer read GetCount;
+  end;
+
+  TIsoFileEnumerator = class
+    //
   end;
 
 implementation
@@ -230,6 +246,16 @@ end;
 
 { TIsoFile }
 
+procedure TIsoFile.ClearBlocks;
+var
+  I: Integer;
+begin
+  for I:=0 to Count-1 do
+    Block[I].Free;
+
+  FBlocks.Clear
+end;
+
 constructor TIsoFile.Create;
 begin
   FBlocks:=TList<TIsoBlock>.Create;
@@ -237,6 +263,7 @@ end;
 
 destructor TIsoFile.Destroy;
 begin
+  ClearBlocks;
   FBlocks.Free;
   inherited;
 end;
@@ -261,7 +288,7 @@ begin
   try
     Lines.LoadFromFile(aFileName);
 
-    FBlocks.Clear;
+    ClearBlocks;
     for Line in Lines do
       FBlocks.Add(TIsoBlock.Create(Line))
 
