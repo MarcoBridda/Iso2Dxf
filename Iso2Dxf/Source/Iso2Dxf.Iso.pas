@@ -261,7 +261,7 @@ var
   I: Integer;
 begin
   for I:=0 to Count-1 do
-    Block[I].Free;
+    FreeAndNil(Block[I]);
 
   FBlocks.Clear
 end;
@@ -344,7 +344,7 @@ end;
 
 function TIsoFileEnumerator.MoveNext: Boolean;
 begin
-  Result:=FIndex<FContainer.Count;
+  Result:=FIndex<FContainer.Count-1;
 
   if Result then
     Inc(FIndex)
