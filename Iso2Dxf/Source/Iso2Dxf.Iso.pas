@@ -67,6 +67,10 @@ type
     property IsEmpty: Boolean read GetIsEmpty;
   end;
 
+  TIsoFile = class
+    //...
+  end;
+
 implementation
 
 { TIsoBlock }
