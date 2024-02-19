@@ -228,11 +228,13 @@ end;
 procedure TIso2DxfFileName.SetDxfFileName(const Value: TFileName);
 begin
   FDxfFileName := Value;
+  UpdateIso
 end;
 
 procedure TIso2DxfFileName.SetIsoFileName(const Value: TFileName);
 begin
   FIsoFileName := Value;
+  UpdateDxf
 end;
 
 procedure TIso2DxfFileName.UpdateDxf;
