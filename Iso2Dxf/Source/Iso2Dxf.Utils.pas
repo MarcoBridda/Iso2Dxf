@@ -69,6 +69,27 @@ interface
     class property ExeInfo: TVSFixedFileInfo read GetExeInfo;
   end;
 
+  //Una struttura per gestire le coppie di nomi dei file Iso e Dxf, dato che
+  //sono collegate.
+  TIso2DxfFileName = record
+  private
+    FIsoFileName: TFileName;
+    FDxfFileName: TFileName;
+    FAutoUpdate: Boolean;
+    procedure SetAutoUpdate(const Value: Boolean);
+    procedure SetDxfFileName(const Value: TFileName);
+    procedure SetIsoFileName(const Value: TFileName);
+  public
+    //Nel costruttore si inizia con il nome del file Iso
+    constructor Create(const aIsoFileName: TFileName; const aAutoUpdate: Boolean = true);
+
+    //I metodi setter delle proprietà convertono un nome nell'altro e viceversa
+    //in base a quale proprietà viene assegnata e al campo FAutoUpdate
+    property IsoFileName: TFileName read FIsoFileName write SetIsoFileName;
+    property DxfFileName: TFileName read FDxfFileName write SetDxfFileName;
+    property AutoUpdate: Boolean read FAutoUpdate write SetAutoUpdate;
+  end;
+
 implementation
 
 { TFloatSettings }
@@ -176,6 +197,29 @@ end;
 class function TAppInfo.GetAppName: String;
 begin
   Result:=String(TAppInfo.GetExeName.Name).Remove(High(TAppInfo.GetExeName.Name)-4)
+end;
+
+{ TIso2DxfFileName }
+
+constructor TIso2DxfFileName.Create(const aIsoFileName: TFileName;
+  const aAutoUpdate: Boolean);
+begin
+  //
+end;
+
+procedure TIso2DxfFileName.SetAutoUpdate(const Value: Boolean);
+begin
+  FAutoUpdate := Value;
+end;
+
+procedure TIso2DxfFileName.SetDxfFileName(const Value: TFileName);
+begin
+  FDxfFileName := Value;
+end;
+
+procedure TIso2DxfFileName.SetIsoFileName(const Value: TFileName);
+begin
+  FIsoFileName := Value;
 end;
 
 end.
