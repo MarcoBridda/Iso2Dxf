@@ -257,13 +257,9 @@ end;
 { TIsoFile }
 
 procedure TIsoFile.ClearBlocks;
-var
-  I: Integer;
 begin
-  for I:=0 to Count-1 do
-    FreeAndNil(Block[I]);
-
-  FBlocks.Clear
+  while FBlocks.Count>0 do
+    FBlocks.ExtractAt(FBlocks.Count-1).Free
 end;
 
 constructor TIsoFile.Create;
