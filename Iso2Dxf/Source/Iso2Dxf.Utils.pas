@@ -76,9 +76,15 @@ interface
     FIsoFileName: TFileName;
     FDxfFileName: TFileName;
     FAutoUpdate: Boolean;
+
+    //Setter
     procedure SetAutoUpdate(const Value: Boolean);
     procedure SetDxfFileName(const Value: TFileName);
     procedure SetIsoFileName(const Value: TFileName);
+
+    //Utilità
+    procedure UpdateDxf;
+    procedure UpdateIso;
   public
     //Nel costruttore si inizia con il nome del file Iso
     constructor Create(const aIsoFileName: TFileName; const aAutoUpdate: Boolean = true);
@@ -204,12 +210,19 @@ end;
 constructor TIso2DxfFileName.Create(const aIsoFileName: TFileName;
   const aAutoUpdate: Boolean);
 begin
-  //
+  FAutoUpdate:=aAutoUpdate;
+  IsoFileName:=aIsoFileName;
 end;
 
 procedure TIso2DxfFileName.SetAutoUpdate(const Value: Boolean);
 begin
-  FAutoUpdate := Value;
+  if FAutoUpdate xor Value then
+  begin
+    FAutoUpdate:=Value;
+
+    //Se devo sincronizzare, quello che comanda è il nome del file Iso
+    UpdateDxf
+  end;
 end;
 
 procedure TIso2DxfFileName.SetDxfFileName(const Value: TFileName);
@@ -220,6 +233,18 @@ end;
 procedure TIso2DxfFileName.SetIsoFileName(const Value: TFileName);
 begin
   FIsoFileName := Value;
+end;
+
+procedure TIso2DxfFileName.UpdateDxf;
+begin
+  if FAutoUpdate then
+    FDxfFileName:=FIsoFileName.ChangeExt('.dxf')
+end;
+
+procedure TIso2DxfFileName.UpdateIso;
+begin
+  if FAutoUpdate then
+    FIsoFileName:=FDxfFileName.ChangeExt('.iso')
 end;
 
 end.
