@@ -76,7 +76,9 @@ type
     //Un file iso-cnc come lista generica di blocchi
     FBlocks: TList<TIsoBlock>;
 
-    //Utilità
+    //Siccome gli elementi della lista sono oggetti, per pulirla non basta usare
+    //il suo metodo Clear, ma bisogna anche distruggere manualmente tutti i suoi
+    //elementi.
     procedure ClearBlocks;
 
     //Getter-Setter
