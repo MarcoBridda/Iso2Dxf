@@ -40,7 +40,7 @@ var
   CncFile: TIsofile;
   IsoBlock: TIsoBlock;
   DxfFile: TDxfFile;
-  FileName: TFileName;
+  FileName: TIso2DxfFileName;
   W: TIsoWord;
   Point: TPoint3D;
   IsMilling: Boolean;
@@ -80,16 +80,21 @@ begin
     if TMBCmdLine.Count>1 then
       raise EIso2DxfMain.Create(TOO_MANY_PARAMS);
 
-    FileName:=TMBCmdLine.Param[1];
+    FileName:=TIso2DxfFileName.Create(TMBCmdLine.Param[1]);
+
+    //Un po' di info per vedere se tutto funziona
+    WriteLn;
+    WriteLn('File Iso: ', FileName.IsoFileName);
+    WriteLn('File Dxf: ', FileName.DxfFileName);
 
     //Percorso non valido
-    if not Filename.Exists then
-      raise EIso2DxfMain.Create(INVALID_PATH + ': ' + FileName);
+    if not Filename.IsoFileName.Exists then
+      raise EIso2DxfMain.Create(INVALID_PATH + ': ' + FileName.IsoFileName);
 
     //Se tutto va bene proseguiamo
     CncFile:=TIsofile.Create();
     try
-      CncFile.LoadFromFile(FileName);
+      CncFile.LoadFromFile(FileName.IsoFileName);
       DxfFile:=TDxfFile.Create;
       try
         //Parte iniziale del dxf
@@ -123,7 +128,7 @@ begin
         //Parte finale del dxf e salvataggio
         DxfFile.EndSection();
         DxfFile.EndOfFile();
-        DxfFile.SaveToFile(FileName.ChangeExt('.dxf'))
+        DxfFile.SaveToFile(FileName.DxfFileName)
       finally
         DxfFile.Free
       end;
