@@ -42,7 +42,7 @@ var
   DxfFile: TDxfFile;
   FileName: TIso2DxfFileName;
   W: TIsoWord;
-  Point: TPoint3D;
+  CurrentCncPosition: TPoint3D;
   IsMilling: Boolean;
   Polyline: TPolygon;
 
@@ -99,7 +99,7 @@ begin
         DxfFile.BeginEntities();
 
         //Inizializzazione
-        Point:=TPoint3D.Zero;
+        CurrentCncPosition:=TPoint3D.Zero;
         IsMilling:=false;
 
         //Un po' di info
@@ -114,20 +114,43 @@ begin
           begin
             for W in IsoBlock.Words do
             begin
-              //Aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
+              //Prima capiamo se stiamo lavorando (G1)
+              if (W='G1') and not IsMilling then
+              begin
+                //Inserisci il punto di partenza della polilinea
+                Polyline.Add(CurrentCncPosition.ToPointF);
+
+                //Imposta il flag
+                IsMilling:=true
+              end;
+
+              //oppure ci muoviamo in rapido (G0)
+              if (W='G0') and IsMilling then
+              begin
+                //Inserisci la polilinea che hai trovato
+                DxfFile.AddPolyline(Polyline);
+
+                //Svuota la polilinea
+                Polyline.Clear;
+
+                //Resetta il flag
+                IsMilling:=false
+              end;
+
+              //Poi aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
               case W.Address of
-                'X': Point.X:=W.FloatValue;
-                'Y': Point.Y:=W.FloatValue;
-                'Z': Point.Z:=W.FloatValue
+                'X': CurrentCncPosition.X:=W.FloatValue;
+                'Y': CurrentCncPosition.Y:=W.FloatValue;
+                'Z': CurrentCncPosition.Z:=W.FloatValue
               end;
 
             end;
-            //Per il momento aggiungiamo tutti i punti senza considerare G0 e G1
-            Polyline.Add(Point.ToPointF);
+            //Aggiungiamo i punti solo se stiamo lavorando
+            if IsMilling then
+              Polyline.Add(CurrentCncPosition.ToPointF);
           end;
         end;
-        //Inserisci la polilinea che hai trovato
-        DxfFile.AddPolyline(Polyline);
+
         //Parte finale del dxf e salvataggio
         DxfFile.EndSection();
         DxfFile.EndOfFile();
