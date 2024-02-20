@@ -63,9 +63,12 @@ end;
 procedure Help(const ErrorMsg: String = '');
 begin
   WriteLn;
+  if not ErrorMsg.IsEmpty then
+  begin
+    WriteLn(ErrorMsg);
+    WriteLn;
+  end;
   WriteLn('Sintassi: ',TAppInfo.AppName.ToUpper(),' isofile.cnc');
-  writeLn;
-  writeLn(ErrorMsg)
 end;
 
 {  -- MAIN --  }
@@ -81,11 +84,6 @@ begin
       raise EIso2DxfMain.Create(TOO_MANY_PARAMS);
 
     FileName:=TIso2DxfFileName.Create(TMBCmdLine.Param[1]);
-
-    //Un po' di info per vedere se tutto funziona
-    WriteLn;
-    WriteLn('File Iso: ', FileName.IsoFileName);
-    WriteLn('File Dxf: ', FileName.DxfFileName);
 
     //Percorso non valido
     if not Filename.IsoFileName.Exists then
@@ -103,6 +101,11 @@ begin
         //Inizializzazione
         Point:=TPoint3D.Zero;
         IsMilling:=false;
+
+        //Un po' di info
+        WriteLn;
+        WriteLn('File Iso: ', FileName.IsoFileName);
+        WriteLn('File Dxf: ', FileName.DxfFileName);
 
         //Elaborazione
         for IsoBlock in CncFile do
