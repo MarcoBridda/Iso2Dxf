@@ -53,6 +53,8 @@ type
     FComments: TStringList;
 
     //Utilità
+    function FindComment(const aBlock: String; out PosBegin, PosEnd: Integer;
+      const StartIndex: Integer = 0): Boolean;
     function ExtractComments(const aBlock: String): String;
     function Normalize(const aBlock: String): String;
     procedure ExtractWords(const aBlock: String);
@@ -186,6 +188,12 @@ begin
 
     FWords.Delete(0);
   end;
+end;
+
+function TIsoBlock.FindComment(const aBlock: String; out PosBegin,
+  PosEnd: Integer; const StartIndex: Integer): Boolean;
+begin
+  //
 end;
 
 function TIsoBlock.GetIsEmpty: Boolean;
