@@ -12,6 +12,9 @@ uses
   Iso2Dxf.Utils;
 
 type
+  //Eccezioni
+  EIso2DxfIso = class(Exception);
+
   TIsoAddress = 'A'..'Z';
   TIsoWord = type String;
   TIsoWords = TList<TIsoWord>;
