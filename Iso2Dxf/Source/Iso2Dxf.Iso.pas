@@ -192,8 +192,31 @@ end;
 
 function TIsoBlock.FindComment(const aBlock: String; out PosBegin,
   PosEnd: Integer; const StartIndex: Integer): Boolean;
+var
+  Count: Integer;
 begin
-  //
+  //Cerchiamo la prima parentesi aperta partendo da StartIndex
+  PosBegin:=aBlock.IndexOf('(', StartIndex);
+  //Il metodo ritorna vero se ha trovato un commento
+  Result:=false;
+
+  //Poi cerchiamo una parentesi chiusa tenendo conto degli annidamenti
+  if PosBegin>-1 then
+  begin
+   PosEnd:=PosBegin+1;
+   Count:=0;
+   while (PosEnd<Length(aBlock)) and not Result do
+   begin
+     if aBlock[PosEnd] = '(' then
+       Inc(Count);
+     if aBlock[PosEnd] = ')' then
+     begin
+       Result:=Count=0;
+       Dec(Count)
+     end;
+     Inc(PosEnd);
+   end;
+  end;
 end;
 
 function TIsoBlock.GetIsEmpty: Boolean;
