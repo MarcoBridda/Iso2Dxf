@@ -73,9 +73,10 @@ end;
 
 {  -- MAIN --  }
 begin
-  //Intanto salutiamo...
-  Hello();
   try
+    //Intanto salutiamo...
+    Hello();
+
     //No parametri
     if not TMBCmdLine.HasParams then
       raise EIso2DxfMain.Create(NO_PARAM_FOUND);
