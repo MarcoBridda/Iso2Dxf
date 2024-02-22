@@ -121,6 +121,10 @@ type
 
 implementation
 
+const
+  //Messaggi di errore
+  NON_COMPLIANT_COMMENT = 'Commento non conforme';
+
 { TIsoBlock }
 
 constructor TIsoBlock.Create(aBlock: String);
@@ -146,24 +150,12 @@ begin
   Result:=aBlock;
   FComments.Clear();
 
-  PosB:=Result.IndexOf('(');
+  PosB:=-1; PosE:=-1;
 
-  while PosB>-1 do
+  while FindComment(Result, PosB, PosE) do
   begin
-    PosE:=Result.IndexOf(')',PosB+1);
-
-    if PosE=-1 then
-    begin
-      FComments.Add(Result.Substring(PosB));
-      Result:=Result.Remove(PosB);
-    end
-    else
-    begin
-      FComments.Add(Result.Substring(PosB,PosE-PosB+1));
-      Result:=Result.Remove(PosB,PosE-PosB+1);
-    end;
-
-    PosB:=Result.IndexOf('(',PosE+1)
+    FComments.Add(Result.Substring(PosB,PosE-PosB+1));
+    Result:=Result.Remove(PosB,PosE-PosB+1);
   end;
 end;
 
@@ -216,6 +208,11 @@ begin
      end;
      Inc(PosEnd);
    end;
+
+   //Se abbiamo trovato una parentesi aperta ma non quella chiusa corrispondente
+   //segnala il problema
+   if not Result and (PosEnd = Length(aBlock)) then
+     raise EIso2DxfIso.Create(NON_COMPLIANT_COMMENT);
   end;
 end;
 
