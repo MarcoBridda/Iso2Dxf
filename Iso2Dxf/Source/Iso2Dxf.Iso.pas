@@ -130,6 +130,7 @@ implementation
 const
   //Messaggi di errore
   NON_COMPLIANT_COMMENT = 'Commento non conforme';
+  NON_COMPLIANT_WORD = 'Parola non conforme';
 
 { TIsoBlock }
 
@@ -294,8 +295,12 @@ begin
 end;
 
 function TIsoWordHelper.SyntaxCheck: TIsoWord;
+var
+  Dummy: Single;
 begin
-  //
+  if not CharInSet(Self.Address, CNC_AXES + CNC_FUNCTIONS + CNC_REST) or
+  not TryStrToFloat(Self.Value, Dummy, GetFloatSettings.Settings) then
+    raise EIso2DxfIso.Create(NON_COMPLIANT_WORD);
 end;
 
 { TIsoFile }
