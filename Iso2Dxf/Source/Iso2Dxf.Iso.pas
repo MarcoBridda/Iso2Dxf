@@ -298,9 +298,14 @@ function TIsoWordHelper.SyntaxCheck: TIsoWord;
 var
   Dummy: Single;
 begin
+  //Prima controlliamo che il primo carattere sia una lettera e gli altri
+  //si possano convertire in un numero
   if not CharInSet(Self.Address, CNC_AXES + CNC_FUNCTIONS + CNC_REST) or
   not TryStrToFloat(Self.Value, Dummy, GetFloatSettings.Settings) then
     raise EIso2DxfIso.Create(NON_COMPLIANT_WORD);
+
+  //Se tutto va bene restituisci la parola
+  Result:=Self
 end;
 
 { TIsoFile }
