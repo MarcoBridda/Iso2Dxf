@@ -199,9 +199,9 @@ begin
    Count:=0;
    while (PosEnd<Length(aBlock)) and not Result do
    begin
-     if aBlock[PosEnd] = '(' then
+     if aBlock[PosEnd+1] = '(' then
        Inc(Count);
-     if aBlock[PosEnd] = ')' then
+     if aBlock[PosEnd+1] = ')' then
      begin
        Result:=Count=0;
        Dec(Count)
@@ -325,7 +325,7 @@ end;
 procedure TIsoFile.LoadFromFile(const aFileName: TFileName);
 var
   Lines: TStringList;
-  Line: String;
+  Index: Integer;
 begin
   Lines:=TStringList.Create;
 
@@ -333,8 +333,13 @@ begin
     Lines.LoadFromFile(aFileName);
 
     ClearBlocks;
-    for Line in Lines do
-      FBlocks.Add(TIsoBlock.Create(Line))
+    for Index:=0 to Lines.Count-1 do
+    try
+      FBlocks.Add(TIsoBlock.Create(Lines[Index]))
+    except
+      on E: Exception do
+        WriteLn(E.Message, ' alla riga ', Index+1)
+    end;
 
   finally
     Lines.Free
