@@ -337,7 +337,7 @@ begin
     try
       FBlocks.Add(TIsoBlock.Create(Lines[Index]))
     except
-      on E: Exception do
+      on E: EIso2DxfIso do
         WriteLn(E.Message, ' alla riga ', Index+1)
     end;
 
