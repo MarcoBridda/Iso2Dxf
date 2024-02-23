@@ -24,6 +24,7 @@ type
     const
       CNC_AXES: TSysCharSet = ['A', 'B', 'C', 'U', 'V', 'W', 'X', 'Y', 'Z'];
       CNC_FUNCTIONS: TSysCharSet = ['F', 'G', 'M', 'N', 'S', 'T'];
+      CNC_REST: TSysCharSet = ['D', 'E', 'H', 'I', 'J', 'K', 'L', 'O', 'P', 'Q','R'];
 
     function GetAddress: Char;
     function GetValue: String;
@@ -33,6 +34,11 @@ type
   public
     //Un metodo che restituisce le impostazioni di stampa dei float
     function GetFloatSettings: TFloatSettings;
+
+    //Un metodo che fa un controllo sintattico sulla word. Per il momento esegue
+    //un controllo generico: una lettera (l'indirizzo) seguita da un numero (il
+    //valore) senza considerare, per esempio, i vari codici G e M
+    function SyntaxCheck: TIsoWord;
 
     //Per il momento le proprietà sono read-only
     property Address: Char read GetAddress;
@@ -176,7 +182,7 @@ begin
     List:=Text.Split(['@']);
 
     for L in List do
-      FWords.Add(TIsoWord(L));
+      FWords.Add(TIsoWord(L).SyntaxCheck);
 
     FWords.Delete(0);
   end;
@@ -285,6 +291,11 @@ end;
 function TIsoWordHelper.GetValue: String;
 begin
   Result:=String(Self).Remove(0,1);
+end;
+
+function TIsoWordHelper.SyntaxCheck: TIsoWord;
+begin
+  //
 end;
 
 { TIsoFile }
