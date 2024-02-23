@@ -183,7 +183,8 @@ begin
     List:=Text.Split(['@']);
 
     for L in List do
-      FWords.Add(TIsoWord(L).SyntaxCheck);
+      if L<>'' then
+        FWords.Add(TIsoWord(L).SyntaxCheck);
 
     FWords.Delete(0);
   end;
