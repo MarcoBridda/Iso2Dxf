@@ -185,8 +185,6 @@ begin
     for L in List do
       if L<>'' then
         FWords.Add(TIsoWord(L).SyntaxCheck);
-
-    FWords.Delete(0);
   end;
 end;
 
@@ -239,7 +237,6 @@ procedure TIsoBlock.SetBlock(const Value: String);
 var
   Text: String;
 begin
-  //Facciamo finta che il blocco iso sia sempre sintatticamente corretto
   if not Value.IsEmpty then
   begin
     Text:=ExtractComments(Value);
