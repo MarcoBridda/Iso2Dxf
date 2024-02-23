@@ -56,8 +56,6 @@ begin
   {$IFDEF DEBUG}
     WriteLn('[DEBUG MODE]');
   {$ENDIF}
-
-  WriteLn
 end;
 
 //un help che stampa la sintassi di chiamata dell'utility con la possibilità di
@@ -106,10 +104,18 @@ begin
     //Se tutto va bene proseguiamo
     CncFile:=TIsofile.Create();
     try
+      //Un po' di info
+      WriteLn;
       WriteLn('File Iso: ', FileName.IsoFileName);
-      CncFile.OnSyntaxError:=MainOnIsoSyntaxError;
-      CncFile.LoadFromFile(FileName.IsoFileName);
       WriteLn('File Dxf: ', FileName.DxfFileName);
+      WriteLn;
+
+      //Poi colleghiamo il gestore dell'evento OnSyntaxError
+      CncFile.OnSyntaxError:=MainOnIsoSyntaxError;
+
+      //Poi carichiamo e controlliamo
+      CncFile.LoadFromFile(FileName.IsoFileName);
+
       DxfFile:=TDxfFile.Create;
       try
         //Parte iniziale del dxf
