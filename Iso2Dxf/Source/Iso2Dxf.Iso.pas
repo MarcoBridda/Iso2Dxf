@@ -16,8 +16,7 @@ type
   EIso2DxfIso = class(Exception);
 
   //Evento per notificare gli errori di sintassi nel file cnc
-  TIsoSyntaxErrorEvent = procedure(Sender: TObject; E: Exception; Msg: String)
-    of object;
+  TIsoSyntaxErrorEvent = procedure(Sender: TObject; E: Exception; Msg: String);
 
   TIsoAddress = 'A'..'Z';
   TIsoWord = type String;

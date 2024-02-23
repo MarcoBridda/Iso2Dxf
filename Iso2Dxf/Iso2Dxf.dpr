@@ -56,6 +56,8 @@ begin
   {$IFDEF DEBUG}
     WriteLn('[DEBUG MODE]');
   {$ENDIF}
+
+  WriteLn
 end;
 
 //un help che stampa la sintassi di chiamata dell'utility con la possibilità di
@@ -69,6 +71,17 @@ begin
     WriteLn;
   end;
   WriteLn('Sintassi: ',TAppInfo.AppName.ToUpper(),' isofile.cnc');
+end;
+
+//Gestione della notifica errori di sintassi nel file iso
+procedure MainOnIsoSyntaxError(Sender: TObject; E: Exception; Msg: String);
+begin
+  //Se siamo in debug stampa anche l'eccezione
+  {$IFDEF DEBUG}
+    Write('<', E.ClassName, ': ', E.Message, '> ');
+  {$ENDIF}
+
+  WriteLn(Msg)
 end;
 
 {  -- MAIN --  }
@@ -93,7 +106,10 @@ begin
     //Se tutto va bene proseguiamo
     CncFile:=TIsofile.Create();
     try
+      WriteLn('File Iso: ', FileName.IsoFileName);
+      CncFile.OnSyntaxError:=MainOnIsoSyntaxError;
       CncFile.LoadFromFile(FileName.IsoFileName);
+      WriteLn('File Dxf: ', FileName.DxfFileName);
       DxfFile:=TDxfFile.Create;
       try
         //Parte iniziale del dxf
@@ -102,11 +118,6 @@ begin
         //Inizializzazione
         CurrentCncPosition:=TPoint3D.Zero;
         IsMilling:=false;
-
-        //Un po' di info
-        WriteLn;
-        WriteLn('File Iso: ', FileName.IsoFileName);
-        WriteLn('File Dxf: ', FileName.DxfFileName);
 
         //Elaborazione
         for IsoBlock in CncFile do
