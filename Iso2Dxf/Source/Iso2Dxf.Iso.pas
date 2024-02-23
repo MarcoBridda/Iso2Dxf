@@ -15,6 +15,10 @@ type
   //Eccezioni
   EIso2DxfIso = class(Exception);
 
+  //Evento per notificare gli errori di sintassi nel file cnc
+  TIsoSyntaxErrorEvent = procedure(Sender: TObject; E: Exception; Msg: String)
+    of object;
+
   TIsoAddress = 'A'..'Z';
   TIsoWord = type String;
   TIsoWords = TList<TIsoWord>;
@@ -87,6 +91,9 @@ type
     //Un file iso-cnc come lista generica di blocchi
     FBlocks: TList<TIsoBlock>;
 
+    //Un evento per segnalare errori di sintassi
+    FOnSyntaxError: TIsoSyntaxErrorEvent;
+
     //Siccome gli elementi della lista sono oggetti, per pulirla non basta usare
     //il suo metodo Clear, ma bisogna anche distruggere manualmente tutti i suoi
     //elementi.
@@ -95,6 +102,8 @@ type
     //Getter-Setter
     function GetBlock(Index: Integer): TIsoBlock;
     function GetCount: Integer;
+  protected
+    procedure DoSyntaxError(E: Exception; Msg: String);
   public
     constructor Create;
     destructor Destroy; override;
@@ -109,6 +118,9 @@ type
     //Proprietà
     property Block[Index: Integer]: TIsoBlock read GetBlock;
     property Count: Integer read GetCount;
+
+    property OnSyntaxError: TIsoSyntaxErrorEvent read FOnSyntaxError
+      write FOnSyntaxError;
   end;
 
   //Implementazione effettiva dell'enumeratore per TIsoFile
@@ -326,6 +338,14 @@ begin
   inherited;
 end;
 
+procedure TIsoFile.DoSyntaxError(E: Exception; Msg: String);
+begin
+  if Assigned(FOnSyntaxError) then
+    FOnSyntaxError(Self, E, Msg)
+  else
+    raise Exception(E.ClassType).Create(Msg)
+end;
+
 function TIsoFile.GetBlock(Index: Integer): TIsoBlock;
 begin
   Result:=FBlocks[Index]
@@ -357,7 +377,8 @@ begin
       FBlocks.Add(TIsoBlock.Create(Lines[Index]))
     except
       on E: EIso2DxfIso do
-        WriteLn(E.Message, ' alla riga ', Index+1)
+        DoSyntaxError(E, E.Message + ' alla riga ' + (Index+1).ToString);
+        //WriteLn(E.Message, ' alla riga ', Index+1)
     end;
 
   finally
