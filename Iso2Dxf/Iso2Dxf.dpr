@@ -41,7 +41,7 @@ var
   IsoBlock: TIsoBlock;
   DxfFile: TDxfFile;
   FileName: TIso2DxfFileName;
-  W: TIsoWord;
+  Word: TIsoWord;
   CurrentCncPosition: TPoint3D;
   IsMilling: Boolean;
   Polyline: TPolygon;
@@ -113,10 +113,10 @@ begin
         begin
           if not IsoBlock.IsEmpty then  //Elabora solo se c'è qualcosa
           begin
-            for W in IsoBlock.Words do
+            for Word in IsoBlock.Words do
             begin
               //Prima capiamo se stiamo lavorando (G1)
-              if (W='G1') and not IsMilling then
+              if (Word='G1') and not IsMilling then
               begin
                 //Inserisci il punto di partenza della polilinea
                 Polyline.Add(CurrentCncPosition.ToPointF);
@@ -126,7 +126,7 @@ begin
               end;
 
               //oppure ci muoviamo in rapido (G0)
-              if (W='G0') and IsMilling then
+              if (Word='G0') and IsMilling then
               begin
                 //Inserisci la polilinea che hai trovato
                 DxfFile.AddPolyline(Polyline);
@@ -139,10 +139,10 @@ begin
               end;
 
               //Poi aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
-              case W.Address of
-                'X': CurrentCncPosition.X:=W.FloatValue;
-                'Y': CurrentCncPosition.Y:=W.FloatValue;
-                'Z': CurrentCncPosition.Z:=W.FloatValue
+              case Word.Address of
+                'X': CurrentCncPosition.X:=Word.FloatValue;
+                'Y': CurrentCncPosition.Y:=Word.FloatValue;
+                'Z': CurrentCncPosition.Z:=Word.FloatValue
               end;
 
             end;
