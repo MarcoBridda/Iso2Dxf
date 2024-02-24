@@ -37,14 +37,15 @@ const
   INVALID_PATH    = 'Percorso non valido';
 
 var
-  CncFile: TIsofile;
-  IsoBlock: TIsoBlock;
-  DxfFile: TDxfFile;
-  FileName: TIso2DxfFileName;
-  Word: TIsoWord;
-  CurrentCncPosition: TPoint3D;
-  IsMilling: Boolean;
-  Polyline: TPolygon;
+  CncFile: TIsofile;             //Il file cnc
+  IsoBlock: TIsoBlock;           //Una riga di comandi(parole) cnc
+  Word: TIsoWord;                //Una parola all'interno di un blocco cnc
+  DxfFile: TDxfFile;             //Il file dxf
+  FileName: TIso2DxfFileName;    //Una struttura per gestire i nomi dei files
+  CurrentCncPosition: TPoint3D;  //Posizione corrente degli assi X, Y, Z
+  Polyline: TPolygon;            //Percorso cnc fatto in G1
+  IsMilling: Boolean;            //Stiamo fresando (G1) oppure no (G0)?
+  IsoHasError: Boolean;          //Ci sono errori di sintassi nel file cnc?
 
 //Un messaggio di presentazione da stampare all'avvio dell' applicazione
 procedure Hello;
