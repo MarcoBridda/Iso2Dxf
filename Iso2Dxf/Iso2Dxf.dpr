@@ -86,6 +86,38 @@ begin
   WriteLn(Msg)
 end;
 
+//In caso di errori chiede se si vuole ugualmente convertire
+function ConvertAnyway: Boolean;
+const
+  //Possibili risposte
+  TRUE_ANSWER : TSysCharSet = ['s', 'S'];
+  FALSE_ANSWER: TSysCharSet = ['n', 'N'];
+var
+  CaretPos: TCoord;
+  Response: String;
+begin
+  WriteLn;
+  WriteLn('Il file presenta degli errori di sintassi.');
+  WriteLn('Le righe contenenti gli errori sono state ignorate e non verranno processate.');
+  Write('Si vuole procedere comunque alla conversione in dxf? [s,n] ');
+
+  CaretPos:=TConsole.CursorPosition;
+  Response:='';
+
+  repeat
+    //Cancelliamo l'input precedente
+    TConsole.CursorPosition:=CaretPos;
+    Response:=String.Create(' ', Length(Response));
+    Write(Response);
+
+    //Riposizioniamo il cursore e leggiamo il nuovo input
+    TConsole.CursorPosition:=CaretPos;
+    ReadLn(Response)
+  until (Response<>'') and CharInSet(Response[1], TRUE_ANSWER + FALSE_ANSWER);
+
+  Result:=CharInSet(Response[1], TRUE_ANSWER)
+end;
+
 {  -- MAIN --  }
 begin
   try
@@ -125,61 +157,64 @@ begin
       //Poi carichiamo e controlliamo
       CncFile.LoadFromFile(FileName.IsoFileName);
 
-      DxfFile:=TDxfFile.Create;
-      try
-        //Parte iniziale del dxf
-        DxfFile.BeginEntities();
+      if not IsoHasError or ConvertAnyway then
+      begin
+        DxfFile:=TDxfFile.Create;
+        try
+          //Parte iniziale del dxf
+          DxfFile.BeginEntities();
 
-        //Elaborazione
-        for IsoBlock in CncFile do
-        begin
-          if not IsoBlock.IsEmpty then  //Elabora solo se c'è qualcosa
+          //Elaborazione
+          for IsoBlock in CncFile do
           begin
-            for Word in IsoBlock.Words do
+            if not IsoBlock.IsEmpty then  //Elabora solo se c'è qualcosa
             begin
-              //Prima capiamo se stiamo lavorando (G1)
-              if (Word='G1') and not IsMilling then
+              for Word in IsoBlock.Words do
               begin
-                //Inserisci il punto di partenza della polilinea
+                //Prima capiamo se stiamo lavorando (G1)
+                if (Word='G1') and not IsMilling then
+                begin
+                  //Inserisci il punto di partenza della polilinea
+                  Polyline.Add(CurrentCncPosition.ToPointF);
+
+                  //Imposta il flag
+                  IsMilling:=true
+                end;
+
+                //oppure ci muoviamo in rapido (G0)
+                if (Word='G0') and IsMilling then
+                begin
+                  //Inserisci la polilinea che hai trovato
+                  DxfFile.AddPolyline(Polyline);
+
+                  //Svuota la polilinea
+                  Polyline.Clear;
+
+                  //Resetta il flag
+                  IsMilling:=false
+                end;
+
+                //Poi aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
+                case Word.Address of
+                  'X': CurrentCncPosition.X:=Word.FloatValue;
+                  'Y': CurrentCncPosition.Y:=Word.FloatValue;
+                  'Z': CurrentCncPosition.Z:=Word.FloatValue
+                end;
+
+              end;
+              //Aggiungiamo i punti solo se stiamo lavorando
+              if IsMilling then
                 Polyline.Add(CurrentCncPosition.ToPointF);
-
-                //Imposta il flag
-                IsMilling:=true
-              end;
-
-              //oppure ci muoviamo in rapido (G0)
-              if (Word='G0') and IsMilling then
-              begin
-                //Inserisci la polilinea che hai trovato
-                DxfFile.AddPolyline(Polyline);
-
-                //Svuota la polilinea
-                Polyline.Clear;
-
-                //Resetta il flag
-                IsMilling:=false
-              end;
-
-              //Poi aggiorniamo le posizioni degli assi x, y, z ad ogni blocco
-              case Word.Address of
-                'X': CurrentCncPosition.X:=Word.FloatValue;
-                'Y': CurrentCncPosition.Y:=Word.FloatValue;
-                'Z': CurrentCncPosition.Z:=Word.FloatValue
-              end;
-
             end;
-            //Aggiungiamo i punti solo se stiamo lavorando
-            if IsMilling then
-              Polyline.Add(CurrentCncPosition.ToPointF);
           end;
-        end;
 
-        //Parte finale del dxf e salvataggio
-        DxfFile.EndSection();
-        DxfFile.EndOfFile();
-        DxfFile.SaveToFile(FileName.DxfFileName)
-      finally
-        DxfFile.Free
+          //Parte finale del dxf e salvataggio
+          DxfFile.EndSection();
+          DxfFile.EndOfFile();
+          DxfFile.SaveToFile(FileName.DxfFileName)
+        finally
+          DxfFile.Free
+        end;
       end;
     finally
       CncFile.Free
