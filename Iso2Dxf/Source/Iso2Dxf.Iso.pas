@@ -377,7 +377,6 @@ begin
     except
       on E: EIso2DxfIso do
         DoSyntaxError(E, E.Message + ' alla riga ' + (Index+1).ToString);
-        //WriteLn(E.Message, ' alla riga ', Index+1)
     end;
 
   finally
