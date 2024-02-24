@@ -75,6 +75,9 @@ end;
 //Gestione della notifica errori di sintassi nel file iso
 procedure MainOnIsoSyntaxError(Sender: TObject; E: Exception; Msg: String);
 begin
+  //Settiamo il flag
+  IsoHasError:=true;
+
   //Se siamo in debug stampa anche l'eccezione
   {$IFDEF DEBUG}
     Write('<', E.ClassName, ': ', E.Message, '> ');
@@ -105,6 +108,11 @@ begin
     //Se tutto va bene proseguiamo
     CncFile:=TIsofile.Create();
     try
+      //Inizializzazione
+      CurrentCncPosition:=TPoint3D.Zero;
+      IsMilling:=false;
+      IsoHasError:=false;
+
       //Un po' di info
       WriteLn;
       WriteLn('File Iso: ', FileName.IsoFileName);
@@ -121,10 +129,6 @@ begin
       try
         //Parte iniziale del dxf
         DxfFile.BeginEntities();
-
-        //Inizializzazione
-        CurrentCncPosition:=TPoint3D.Zero;
-        IsMilling:=false;
 
         //Elaborazione
         for IsoBlock in CncFile do
