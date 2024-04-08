@@ -197,7 +197,7 @@ end;
 
 class function TAppInfo.GetExeName: TFileName;
 begin
-  Result:=TMBCmdLine.Param[0]
+  Result:=TMBCmdLine.Argument[0]
 end;
 
 class function TAppInfo.GetAppName: String;

@@ -125,13 +125,13 @@ begin
     Hello();
 
     //No parametri
-    if not TMBCmdLine.HasParams then
+    if not TMBCmdLine.HasArguments then
       raise EIso2DxfMain.Create(NO_PARAM_FOUND);
     //troppi parametri
     if TMBCmdLine.Count>1 then
       raise EIso2DxfMain.Create(TOO_MANY_PARAMS);
 
-    FileName:=TIso2DxfFileName.Create(TMBCmdLine.Param[1]);
+    FileName:=TIso2DxfFileName.Create(TMBCmdLine.Argument[1]);
 
     //Percorso non valido
     if not Filename.IsoFileName.Exists then
