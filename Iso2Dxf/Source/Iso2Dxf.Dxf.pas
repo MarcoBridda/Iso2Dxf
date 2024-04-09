@@ -7,7 +7,11 @@ unit Iso2Dxf.Dxf;
 interface
 
 uses
-  System.Classes, System.Types, System.SysUtils, System.Math.Vectors,
+  System.Classes,
+  System.Types,
+  System.SysUtils,
+  System.Math.Vectors,
+  MBSoft.System.Math.Vectors,
   Iso2Dxf.Utils;
 
 type
