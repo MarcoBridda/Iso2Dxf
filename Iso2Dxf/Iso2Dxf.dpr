@@ -20,6 +20,7 @@ uses
   Winapi.Windows,
   MBSoft.System,
   MBSoft.System.SysUtils,
+  MBSoft.System.Math.Vectors,
   MBSoft.System.IOUtils,
   MBSoft.Winapi.Windows,
   Iso2Dxf.Dxf in 'Source\Iso2Dxf.Dxf.pas',
