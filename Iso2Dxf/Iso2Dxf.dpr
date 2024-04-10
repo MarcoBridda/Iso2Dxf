@@ -102,21 +102,10 @@ begin
   WriteLn('Le righe contenenti gli errori sono state ignorate e non verranno processate.');
   Write('Si vuole procedere comunque alla conversione in dxf? [s,n] ');
 
-  {CaretPos:=TConsole.CursorPosition;
-  Response:='';
+  CaretPos:=TConsole.CursorPosition;
 
   repeat
-    //Cancelliamo l'input precedente
     TConsole.CursorPosition:=CaretPos;
-    Response:=String.Create(' ', Length(Response));
-    Write(Response);
-
-    //Riposizioniamo il cursore e leggiamo il nuovo input
-    TConsole.CursorPosition:=CaretPos;
-    ReadLn(Response)
-  until (Response<>'') and CharInSet(Response[1], TRUE_ANSWER + FALSE_ANSWER);}
-
-  repeat
     TConsole.ClrEOL;
     ReadLn(Response)
   until (Response<>'') and CharInSet(Response[1], TRUE_ANSWER + FALSE_ANSWER);
