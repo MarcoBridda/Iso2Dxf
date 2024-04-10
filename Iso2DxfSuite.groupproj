@@ -6,6 +6,9 @@
         <Projects Include="Iso2Dxf\Iso2Dxf.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Test\Test.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -23,14 +26,23 @@
     <Target Name="Iso2Dxf:Make">
         <MSBuild Projects="Iso2Dxf\Iso2Dxf.dproj" Targets="Make"/>
     </Target>
+    <Target Name="Test">
+        <MSBuild Projects="Test\Test.dproj"/>
+    </Target>
+    <Target Name="Test:Clean">
+        <MSBuild Projects="Test\Test.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Test:Make">
+        <MSBuild Projects="Test\Test.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Iso2Dxf"/>
+        <CallTarget Targets="Iso2Dxf;Test"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Iso2Dxf:Clean"/>
+        <CallTarget Targets="Iso2Dxf:Clean;Test:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Iso2Dxf:Make"/>
+        <CallTarget Targets="Iso2Dxf:Make;Test:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
