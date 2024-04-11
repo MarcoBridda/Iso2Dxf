@@ -108,7 +108,7 @@ begin
     TConsole.CursorPosition:=CaretPos;
     TConsole.ClrEOL;
     ReadLn(Response)
-  until (Response<>'') and CharInSet(Response[1], TRUE_ANSWER + FALSE_ANSWER);
+  until (Length(Response)=1) and CharInSet(Response[1], TRUE_ANSWER + FALSE_ANSWER);
 
   Result:=CharInSet(Response[1], TRUE_ANSWER)
 end;
