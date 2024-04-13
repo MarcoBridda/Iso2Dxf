@@ -39,9 +39,7 @@ const
 
 var
   CncFile: TIsofile;             //Il file cnc
-  IsoBlock: TIsoBlock;           //Una riga di comandi(parole) cnc
   PolyList: TPolygonList;        //La Lista di tutti i percorsi trovati
-  Word: TIsoWord;                //Una parola all'interno di un blocco cnc
   DxfFile: TDxfFile;             //Il file dxf
   FileName: TIso2DxfFileName;    //Una struttura per gestire i nomi dei files
   CurrentCncPosition: TPoint3D;  //Posizione corrente degli assi X, Y, Z
@@ -155,17 +153,18 @@ begin
 
       if not IsoHasError or ConvertAnyway then
       begin
-        DxfFile:=TDxfFile.Create;
+        PolyList:=TPolygonList.Create;
+        //DxfFile:=TDxfFile.Create;
         try
           //Parte iniziale del dxf
-          DxfFile.BeginEntities();
+          //DxfFile.BeginEntities();
 
           //Elaborazione
-          for IsoBlock in CncFile do
+          for var IsoBlock: TIsoBlock in CncFile do
           begin
             if not IsoBlock.IsEmpty then  //Elabora solo se c'è qualcosa
             begin
-              for Word in IsoBlock.Words do
+              for var Word: TIsoWord in IsoBlock.Words do
               begin
                 //Prima capiamo se stiamo lavorando (G1)
                 if (Word='G1') and not IsMilling then
@@ -181,7 +180,8 @@ begin
                 if (Word='G0') and IsMilling then
                 begin
                   //Inserisci la polilinea che hai trovato
-                  DxfFile.AddPolyline(Polyline);
+                  PolyList.Add(Polyline);
+                  //DxfFile.AddPolyline(Polyline);
 
                   //Svuota la polilinea
                   Polyline.Clear;
@@ -209,7 +209,8 @@ begin
           DxfFile.EndOfFile();
           DxfFile.SaveToFile(FileName.DxfFileName)
         finally
-          DxfFile.Free
+          //DxfFile.Free
+          PolyList.Free
         end;
       end;
     finally
