@@ -40,6 +40,7 @@ const
 var
   CncFile: TIsofile;             //Il file cnc
   IsoBlock: TIsoBlock;           //Una riga di comandi(parole) cnc
+  PolyList: TPolygonList;        //La Lista di tutti i percorsi trovati
   Word: TIsoWord;                //Una parola all'interno di un blocco cnc
   DxfFile: TDxfFile;             //Il file dxf
   FileName: TIso2DxfFileName;    //Una struttura per gestire i nomi dei files
