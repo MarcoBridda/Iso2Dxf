@@ -154,11 +154,7 @@ begin
       if not IsoHasError or ConvertAnyway then
       begin
         PolyList:=TPolygonList.Create;
-        //DxfFile:=TDxfFile.Create;
         try
-          //Parte iniziale del dxf
-          //DxfFile.BeginEntities();
-
           //Elaborazione
           for var IsoBlock: TIsoBlock in CncFile do
           begin
@@ -181,7 +177,6 @@ begin
                 begin
                   //Inserisci la polilinea che hai trovato
                   PolyList.Add(Polyline);
-                  //DxfFile.AddPolyline(Polyline);
 
                   //Svuota la polilinea
                   Polyline.Clear;
@@ -204,10 +199,24 @@ begin
             end;
           end;
 
-          //Parte finale del dxf e salvataggio
-          DxfFile.EndSection();
-          DxfFile.EndOfFile();
-          DxfFile.SaveToFile(FileName.DxfFileName)
+          //Finiti percorsi creiamo il file DXF
+          DxfFile:=TDxfFile.Create;
+          try
+            //Parte iniziale del dxf
+            DxfFile.BeginEntities();
+
+            //Aggiungiamo i percorsi
+            for var CncPath: TPolygon in PolyList do
+              DxfFile.AddPolyline(CncPath);
+
+            //Parte finale del dxf e salvataggio
+            DxfFile.EndSection();
+            DxfFile.EndOfFile();
+            DxfFile.SaveToFile(FileName.DxfFileName)
+          finally
+            DxfFile.Free;
+          end;
+
         finally
           //DxfFile.Free
           PolyList.Free
