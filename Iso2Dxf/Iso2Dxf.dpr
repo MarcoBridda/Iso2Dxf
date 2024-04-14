@@ -15,7 +15,7 @@ program Iso2Dxf;
 
 uses
   System.SysUtils,
-  System.Classes,
+  //System.Classes,
   System.Math.Vectors,
   Winapi.Windows,
   MBSoft.System,

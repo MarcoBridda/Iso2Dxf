@@ -12,9 +12,20 @@ G1 X-15 Y10
 G1 X-15 Y-10
 G0 Z15
 
+(Secondo rettangolo, prima passata)
 G0 X20 Y-10
 G0 Z0
 G1 Z-0.5 F500
+G1 X50 Y-10
+G1 X50 Y10
+G1 X20 Y10
+G1 X20 Y-10
+G0 Z15
+
+(Secondo rettangolo, seconda passata)
+G0 X20 Y-10
+G0 Z0
+G1 Z-1.5 F500
 G1 X50 Y-10
 G1 X50 Y10
 G1 X20 Y10
