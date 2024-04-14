@@ -95,7 +95,7 @@
         <Manifest_File>..\(None)</Manifest_File>
         <DCC_Description>Utility per la conversione di un file ISO in un DXF</DCC_Description>
         <VerInfo_Release>1</VerInfo_Release>
-        <Debugger_RunParams>&quot;C:\Users\Marco\Documents\MBSoft\Delphi 10\Project\Iso2Dxf\Iso2Dxf\DXF_CNC_Test\Prova.cnc&quot;</Debugger_RunParams>
+        <Debugger_RunParams>&quot;C:\Users\Marco\Documents\MBSoft\Delphi 10\Project\Iso2Dxf\Iso2Dxf\DXF_CNC_Test\TEE 14.cnc&quot;</Debugger_RunParams>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
