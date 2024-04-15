@@ -109,6 +109,7 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_MinorVer>4</VerInfo_MinorVer>
         <VerInfo_Keys>CompanyName=MBsoft;FileDescription=$(MSBuildProjectName);FileVersion=1.4.0.0;InternalName=Iso2Dxf;LegalCopyright=MBSoft (2024);LegalTrademarks=MBSoft;OriginalFilename=Iso2Dxf;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.4.0.0;Comments=Utility per la conversione di un file ISO in un DXF</VerInfo_Keys>
+        <Icon_MainIcon>Icons\Iso2Dxf.ico</Icon_MainIcon>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
