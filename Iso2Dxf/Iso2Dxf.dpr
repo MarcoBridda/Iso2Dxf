@@ -4,7 +4,7 @@ program Iso2Dxf;
 //in un DXF.
 //Il file DXF viene generato nello stesso percorso del file ISO.
 //
-//Versione 1.3.0.0
+//Versione 1.5.0.0
 //
 //Copyright MBSoft(2024)
 //****************************************************************************
